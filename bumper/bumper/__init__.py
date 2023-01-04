@@ -34,7 +34,7 @@ if not log_to_stdout:
 data_dir = os.environ.get("BUMPER_DATA") or os.path.join(bumper_dir, "data")
 os.makedirs(data_dir, exist_ok=True)  # Ensure data directory exists or create
 certs_dir = os.environ.get("BUMPER_CERTS") or os.path.join(bumper_dir, "certs")
-os.makedirs(certs_dir, exist_ok=True)  # Ensure data directory exists or create
+os.makedirs(certs_dir, exist_ok=True)  # Ensure certs directory exists or create
 
 
 # Certs

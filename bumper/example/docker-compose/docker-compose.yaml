@@ -29,7 +29,6 @@ services:
     restart: unless-stopped
     networks:
       bumper:
-
     environment:
       PUID: 1000
       PGID: 1000
@@ -39,7 +38,7 @@ services:
       # BUMPER_DEBUG: "true"
       LOG_TO_STDOUT: "true"
       # ENABLE_XMPP: "false" # uncomment to disable xmpp
-      # ENABMPE_MQTT: "false" # uncomment to disable mqtt
+      # ENABLE_MQTT: "false" # uncomment to disable mqtt
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
