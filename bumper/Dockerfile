@@ -44,5 +44,7 @@ RUN chmod a+x /create_certs/* /create_certs/src/*
 COPY data/ /share/bumper-data
 COPY certs/ /ssl/bumper-certs
 
-ENTRYPOINT ["python3", "-m", "bumper"]
-CMD []
+COPY run.sh /
+RUN chmod a+x /run.sh
+
+CMD [ "/run.sh" ]

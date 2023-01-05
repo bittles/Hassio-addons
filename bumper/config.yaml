@@ -30,16 +30,14 @@ map:
   - ssl:rw
   - share:rw
 schema:
-  BUMPER_ANNOUNCE_IP: match(([0-9])+(.+))
-  TZ: str
-  BUMPER_LISTEN: match(([0-9])+(.+))?
-  BUMPER_DEBUG: bool?
-  ENABLE_XMPP: bool
-  ENABLE_MQTT: bool
+  announce_ip: match(([0-9])+(.+))
+  time_zone: str
+  debug_logs: bool?
+  enable_xmpp_server: bool
+  enable_mqtt_server: bool
 options:
-  BUMPER_ANNOUNCE_IP: 192.168.21.40
-  TZ: America/New_York
-  BUMPER_LISTEN: 0.0.0.0
-  BUMPER_DEBUG: true
-  ENABLE_XMPP: true
-  ENABLE_MQTT: true
+  announce_ip: 192.168.21.40
+  time_zone: America/New_York
+  debug_logs: true
+  enable_xmpp_server: true
+  enable_mqtt_server: true
