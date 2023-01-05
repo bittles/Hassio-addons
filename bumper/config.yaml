@@ -21,11 +21,11 @@ ports_description:
   8007/tcp: Port serving helper to assign server to robot
   8883/tcp: Port serving bumper MQTT server
 environment:
-  PGID: 1000
-  PUID: 1000
+  PGID: "1000"
+  PUID: "1000"
   BUMPER_DATA: /share/bumper/data
   BUMPER_CERTS: /ssl/bumper/certs
-  LOG_TO_STDOUT: true
+  LOG_TO_STDOUT: "True"
 map:
   - ssl:rw
   - share:rw
