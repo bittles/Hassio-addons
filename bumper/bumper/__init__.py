@@ -49,6 +49,12 @@ bumper_listen = os.getenv("BUMPER_LISTEN") or socket.gethostbyname(
 
 bumper_announce_ip = os.getenv("BUMPER_ANNOUNCE_IP") or bumper_listen
 
+
+# Other
+bumper_debug = strtobool(os.getenv("BUMPER_DEBUG")) or False
+bumper_xmpp = strtobool(os.getenv("ENABLE_XMPP")) or True
+bumper_mqtt = strtobool(os.getenv("ENABLE_MQTT")) or True
+
 # Only import if enabled
 enable_mqtt = True
 enable_xmpp = True
@@ -58,8 +64,7 @@ if enable_mqtt:
     from bumper.mqttserver import MQTTServer, MQTTHelperBot
 if enable_xmpp:
     from bumper.xmppserver import XMPPServer
-# Other
-bumper_debug = strtobool(os.getenv("BUMPER_DEBUG")) or False
+
 use_auth = False
 token_validity_seconds = 3600  # 1 hour
 oauth_validity_days = 15
@@ -378,6 +383,9 @@ def main(argv=None):
     global bumper_debug
     global bumper_listen
     global bumper_announce_ip
+    global bumper_xmpp
+    global bumper_mqtt
+
     if not argv:
         argv = sys.argv[1:]  # Set argv to argv[1:] if not passed into main
     try:
@@ -407,6 +415,10 @@ def main(argv=None):
         )
         parser.add_argument("--debug", action="store_true", help="enable debug logs")
 
+        parser.add_argument("--enable_xmpp", action="store_true", help="enable xmpp server")
+
+        parser.add_argument("--enable_mqtt", action="store_true", help="enable mqtt server")
+
         args = parser.parse_args(args=argv)
 
         if args.debug:
@@ -417,6 +429,12 @@ def main(argv=None):
 
         if args.announce:
             bumper_announce_ip = args.announce
+
+        if args.enable_xmpp:
+            bumper_xmpp = True
+
+        if args.enable_mqtt:
+            bumper_mqtt = True
 
         asyncio.run(start())
 
