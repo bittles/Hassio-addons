@@ -1,6 +1,6 @@
 build_from:
-  armhf: "arm32v6/alpine"
-  armv7: "arm32v7/alpine"
-  aarch64: "arm64v8/alpine"
-  amd64: "amd64/alpine"
-  i386: "i386/alpine"
+  armhf: arm32v6/alpine
+  armv7: arm32v7/alpine
+  aarch64: arm64v8/alpine
+  amd64: amd64/alpine
+  i386: i386/alpine
