@@ -31,9 +31,9 @@ log_to_stdout = os.environ.get("LOG_TO_STDOUT")
 if not log_to_stdout:
     logs_dir = os.environ.get("BUMPER_LOGS") or os.path.join(bumper_dir, "logs")
     os.makedirs(logs_dir, exist_ok=True)  # Ensure logs directory exists or create
-data_dir = os.environ.get("BUMPER_DATA") or os.path.join(bumper_dir, "data")
+data_dir = os.environ.get("BUMPER_DATA") # or os.path.join(bumper_dir, "data")
 os.makedirs(data_dir, exist_ok=True)  # Ensure data directory exists or create
-certs_dir = os.environ.get("BUMPER_CERTS") or os.path.join(bumper_dir, "certs")
+certs_dir = os.environ.get("BUMPER_CERTS") # or os.path.join(bumper_dir, "certs")
 os.makedirs(certs_dir, exist_ok=True)  # Ensure certs directory exists or create
 
 
