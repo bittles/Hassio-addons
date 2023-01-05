@@ -20,8 +20,8 @@ def strtobool(strbool):
 
 enable_mqtt = True
 enable_xmpp = True
-enable_mqtt = strtobool(os.environ.get("ENABLE_MQTT"))
-enable_xmpp = strtobool(os.environ.get("ENABLE_XMPP"))
+enable_mqtt = strtobool(os.getenv("ENABLE_MQTT"))
+enable_xmpp = strtobool(os.getenv("ENABLE_XMPP"))
 
 class aiohttp_filter(logging.Filter):
     def filter(self, record):
