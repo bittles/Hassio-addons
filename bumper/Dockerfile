@@ -30,6 +30,10 @@ COPY requirements.txt /requirements.txt
 # install required python packages
 RUN pip3 install -r requirements.txt
 
+RUN apk add --no-cache nginx openssl-dev
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
 WORKDIR /bumper
 
 # Copy only required folders instead of all
