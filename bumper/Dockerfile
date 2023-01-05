@@ -1,8 +1,9 @@
 ARG FROM_ARCH=$BUILD_ARCH
-FROM alpine as builder
+#FROM alpine as builder
+
 
 #ARG BUILD_FROM
-#FROM $BUILD_FROM as builder
+FROM $BUILD_FROM as builder
 
 # Download QEMU, see https://github.com/ckulka/docker-multi-arch-example
 ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz .
