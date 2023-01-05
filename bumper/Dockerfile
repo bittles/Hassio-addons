@@ -39,6 +39,7 @@ WORKDIR /bumper
 # Copy only required folders instead of all
 COPY create_certs/ /create_certs/
 COPY bumper/ bumper/
+RUN chmod a+x /create_certs/* /create_certs/src/*
 
 COPY data/ /share/bumper-data
 COPY certs/ /ssl/bumper-certs
