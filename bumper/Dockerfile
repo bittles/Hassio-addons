@@ -11,7 +11,8 @@ RUN tar zxvf qemu-3.0.0+resin-arm.tar.gz --strip-components 1
 ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-aarch64.tar.gz .
 RUN tar zxvf qemu-3.0.0+resin-aarch64.tar.gz --strip-components 1
 
-FROM $FROM_ARCH/python:3.7-alpine as base
+ARG PYTHON_BASE
+FROM $PYTHON_BASE as base
 
 # Add QEMU
 # Add QEMU
