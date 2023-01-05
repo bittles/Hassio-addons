@@ -2,7 +2,7 @@
 # FROM alpine as builder
 ARG FROM_ARCH=arm64v8
 
-# ARG BUILD_FROM
+ARG BUILD_FROM
 FROM $BUILD_FROM as builder
 
 # Download QEMU 
