@@ -1,11 +1,11 @@
-ARG FROM_ARCH=$BUILD_ARCH
-#FROM alpine as builder
+# ARG FROM_ARCH=$BUILD_ARCH
+# FROM alpine as builder
+ARG FROM_ARCH=arm64v8
 
-
-#ARG BUILD_FROM
+# ARG BUILD_FROM
 FROM $BUILD_FROM as builder
 
-# Download QEMU, see https://github.com/ckulka/docker-multi-arch-example
+# Download QEMU 
 ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz .
 RUN tar zxvf qemu-3.0.0+resin-arm.tar.gz --strip-components 1
 ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-aarch64.tar.gz .
@@ -37,3 +37,4 @@ COPY create_certs/ create_certs/
 COPY bumper/ bumper/
 
 ENTRYPOINT ["python3", "-m", "bumper"]
+CMD []

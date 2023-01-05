@@ -1,7 +1,7 @@
-name: Bumper
-version: 1.0.0
-slug: Bumper
-description: Local replacement server for Ecovacs robots.
+name: "Bumper"
+version: "1.0.0"
+slug: "bumper"
+description: "Local replacement server for Ecovacs robots."
 url: https://github.com/bittles/Hassio-addons/tree/master/bumper
 arch:
   - armhf
