@@ -1,11 +1,11 @@
 image: homeassistant/{arch}-base
 shadow_repository: ghcr.io/home-assistant
-build_from:
-#  aarch64: "arm64v8/alpine:"
-#  armv7: "arm32v7/alpine:"
-#  armhf: "arm32v6/alpine:"
-#  amd64: "alpine:"
-#  i386: "i386/alpine:"
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
 codenotary:
   signer: notary@home-assistant.io
 args:
