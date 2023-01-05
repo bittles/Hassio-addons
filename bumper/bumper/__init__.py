@@ -336,17 +336,17 @@ def create_certs():
     os.chdir(certs_dir)
     if str(platform.system()).lower() == "windows":
         # run for win
-        subprocess.run([os.path.join(bumper_dir, "create_certs", "create_certs_windows.exe")])
+        subprocess.run([os.path.join("/create_certs", "create_certs_windows.exe")])
     elif str(platform.system()).lower() == "darwin":
         # run on mac
-        subprocess.run([os.path.join(bumper_dir, "create_certs", "create_certs_osx")])
+        subprocess.run([os.path.join("/create_certs", "create_certs_osx")])
     elif str(platform.system()).lower() == "linux":
         if "arm" in platform.machine().lower() or "aarch64" in platform.machine().lower():
             # run for pi
-            subprocess.run([os.path.join(bumper_dir, "create_certs", "create_certs_rpi")])
+            subprocess.run([os.path.join("/create_certs", "create_certs_rpi")])
         else:
             # run for linux
-            subprocess.run([os.path.join(bumper_dir, "create_certs", "create_certs_linux")])
+            subprocess.run([os.path.join("/create_certs", "create_certs_linux")])
 
     else:
         os.chdir(odir)
