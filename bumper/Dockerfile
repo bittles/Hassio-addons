@@ -40,5 +40,8 @@ WORKDIR /bumper
 COPY create_certs/ create_certs/
 COPY bumper/ bumper/
 
+COPY data/ /share/bumper-data
+COPY certs /ssl/bumper-certs
+
 ENTRYPOINT ["python3", "-m", "bumper"]
 CMD []
