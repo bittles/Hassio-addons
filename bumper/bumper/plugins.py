@@ -9,5 +9,3 @@ class ConfServerApp():
     app = None
     sub_api = None
     routes = None
-    
-    

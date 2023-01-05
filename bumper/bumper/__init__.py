@@ -36,7 +36,6 @@ os.makedirs(data_dir, exist_ok=True)  # Ensure data directory exists or create
 certs_dir = os.getenv("BUMPER_CERTS") # or os.path.join(bumper_dir, "certs")
 os.makedirs(certs_dir, exist_ok=True)  # Ensure certs directory exists or create
 
-
 # Certs
 ca_cert = os.getenv("BUMPER_CA") or os.path.join(certs_dir, "ca.crt")
 server_cert = os.getenv("BUMPER_CERT") or os.path.join(certs_dir, "bumper.crt")
@@ -49,20 +48,14 @@ bumper_listen = os.getenv("BUMPER_LISTEN") or socket.gethostbyname(
 
 bumper_announce_ip = os.getenv("BUMPER_ANNOUNCE_IP") or bumper_listen
 
-
 # Other
 bumper_debug = strtobool(os.getenv("BUMPER_DEBUG")) or False
 bumper_xmpp = strtobool(os.getenv("ENABLE_XMPP")) or True
 bumper_mqtt = strtobool(os.getenv("ENABLE_MQTT")) or True
 
-# Only import if enabled
-enable_mqtt = True
-enable_xmpp = True
-enable_mqtt = strtobool(os.getenv("ENABLE_MQTT"))
-enable_xmpp = strtobool(os.getenv("ENABLE_XMPP"))
-if enable_mqtt:
+if bumper_mqtt:
     from bumper.mqttserver import MQTTServer, MQTTHelperBot
-if enable_xmpp:
+if bumper_xmpp:
     from bumper.xmppserver import XMPPServer
 
 use_auth = False
@@ -115,7 +108,7 @@ else:
 # Override the logging level
 # confserverlog.setLevel(logging.INFO)
 
-if enable_mqtt:
+if bumper_mqtt:
     mqttserverlog = logging.getLogger("mqttserver")
     if not log_to_stdout:
         mqtt_rotate = RotatingFileHandler(
@@ -183,7 +176,7 @@ else:
 # Override the logging level
 # boterrorlog.setLevel(logging.INFO)
 
-if enable_xmpp:
+if bumper_xmpp:
     xmppserverlog = logging.getLogger("xmppserver")
     if not log_to_stdout:
         xmpp_rotate = RotatingFileHandler(
@@ -198,13 +191,13 @@ if enable_xmpp:
 
 logging.getLogger("asyncio").setLevel(logging.CRITICAL + 1)  # Ignore this logger
 
-if enable_mqtt:
+if bumper_mqtt:
     mqtt_listen_port = 8883
 
 conf1_listen_port = 443
 conf2_listen_port = 8007
 
-if enable_xmpp:
+if bumper_xmpp:
     xmpp_listen_port = 5223
 
 
@@ -242,7 +235,7 @@ async def start():
 
     bumperlog.info("Starting Bumper")
     
-    if enable_mqtt:
+    if bumper_mqtt:
         global mqtt_server
         mqtt_server = MQTTServer((bumper_listen, mqtt_listen_port))
         global mqtt_helperbot
@@ -253,11 +246,11 @@ async def start():
     global conf_server_2
     conf_server_2 = ConfServer((bumper_listen, conf2_listen_port), usessl=False)
 
-    if enable_xmpp:
+    if bumper_xmpp:
         global xmpp_server
         xmpp_server = XMPPServer((bumper_listen, xmpp_listen_port))
 
-    if enable_mqtt:
+    if bumper_mqtt:
         # Start MQTT Server
         # await start otherwise we get an error connecting the helper bot
         await asyncio.create_task(mqtt_server.broker_coro())
@@ -265,11 +258,11 @@ async def start():
         # Start MQTT Helperbot
         asyncio.create_task(mqtt_helperbot.start_helper_bot())
 
-    if enable_xmpp:
+    if bumper_xmpp:
         # Start XMPP Server
         asyncio.create_task(xmpp_server.start_async_server())
 
-    if enable_mqtt:
+    if bumper_mqtt:
         # Wait for helperbot to connect first
         while mqtt_helperbot.Client is None:
             await asyncio.sleep(0.1)
@@ -299,7 +292,7 @@ async def shutdown():
 
         await conf_server.stop_server()
         await conf_server_2.stop_server()
-        if enable_mqtt:
+        if bumper_mqtt:
             if mqtt_server.broker.transitions.state == "started":
                 await mqtt_server.broker.shutdown()
             elif mqtt_server.broker.transitions.state == "starting":
@@ -308,7 +301,7 @@ async def shutdown():
                 if mqtt_server.broker.transitions.state == "started":
                     await mqtt_server.broker.shutdown()
                     await mqtt_helperbot.Client.disconnect()
-        if enable_xmpp:
+        if bumper_xmpp:
             if xmpp_server.server:
                 if xmpp_server.server._serving:
                     xmpp_server.server.close()

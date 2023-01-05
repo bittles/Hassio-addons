@@ -18,10 +18,8 @@ def strtobool(strbool):
     else:
         return False
 
-enable_mqtt = True
-enable_xmpp = True
-enable_mqtt = strtobool(os.getenv("ENABLE_MQTT"))
-enable_xmpp = strtobool(os.getenv("ENABLE_XMPP"))
+bumper_mqtt = strtobool(os.getenv("ENABLE_MQTT")) or True
+bumper_xmpp = strtobool(os.getenv("ENABLE_XMPP")) or True
 
 class aiohttp_filter(logging.Filter):
     def filter(self, record):
@@ -182,14 +180,14 @@ class ConfServer:
 
             bots = bumper.db_get().table("bots").all()
             clients = bumper.db_get().table("clients").all()
-            if enable_xmpp:
+            if bumper_xmpp:
                 xmppserver = bumper.xmpp_server
-            if enable_mqtt:
+            if bumper_mqtt:
                 helperbot = bumper.mqtt_helperbot.Client.session.transitions.state
                 mqttserver = bumper.mqtt_server.broker
 
             mq_sessions = []
-            if enable_mqtt:
+            if bumper_mqtt:
                 for sess in mqttserver._sessions:
                     tmpsess = []
                     tmpsess.append({
@@ -283,12 +281,12 @@ class ConfServer:
             return await handler(request)
 
     async def restart_Helper(self):
-        if enable_mqtt:
+        if bumper_mqtt:
             await bumper.mqtt_helperbot.Client.disconnect()
             asyncio.create_task(bumper.mqtt_helperbot.start_helper_bot())
 
     async def restart_MQTT(self):
-        if enable_mqtt:
+        if bumper_mqtt:
             if not (bumper.mqtt_server.broker.transitions.state == "stopped" or bumper.mqtt_server.broker.transitions.state == "not_started"):
                 # close session writers - this was required so bots would reconnect properly after restarting
                 for sess in list(bumper.mqtt_server.broker._sessions):                
@@ -309,17 +307,17 @@ class ConfServer:
             )  # In 1.5 seconds start broker
 
     async def restart_XMPP(self):
-        if enable_xmpp:
+        if bumper_xmpp:
             bumper.xmpp_server.disconnect()
             await bumper.xmpp_server.start_async_server()
 
     async def handle_RestartService(self, request):
         try:
             service = request.match_info.get("service", "")
-            if service == "Helperbot" and enable_mqtt:
+            if service == "Helperbot" and bumper_mqtt:
                 await self.restart_Helper()
                 return web.json_response({"status": "complete"})
-            elif service == "MQTTServer" and enable_mqtt:
+            elif service == "MQTTServer" and bumper_mqtt:
                 asyncio.create_task(self.restart_MQTT())
                 aloop = asyncio.get_event_loop()
                 aloop.call_later(
@@ -327,7 +325,7 @@ class ConfServer:
                 )  # In 5 seconds restart Helperbot
                 return web.json_response({"status": "complete"})
 
-            elif service == "XMPPServer" and enable_xmpp:
+            elif service == "XMPPServer" and bumper_xmpp:
                 await self.restart_XMPP()
                 return web.json_response({"status": "complete"})
             else:
