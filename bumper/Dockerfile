@@ -37,7 +37,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /bumper
 
 # Copy only required folders instead of all
-COPY create_certs/ create_certs/
+COPY create_certs/ /create_certs/
 COPY bumper/ bumper/
 
 COPY data/ /share/bumper-data
