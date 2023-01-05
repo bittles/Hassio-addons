@@ -23,6 +23,8 @@ ports_description:
 environment:
   PGID: "1000"
   PUID: "1000"
+  BUMPER_DATA: /share/
+  BUMPER_CERTS: /ssl/
   LOG_TO_STDOUT: "True"
 map:
   - ssl:rw
