@@ -24,42 +24,42 @@ def strtobool(strbool):
 # os.environ['PYTHONASYNCIODEBUG'] = '1' # Uncomment to enable ASYNCIODEBUG
 bumper_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
-log_to_stdout = os.environ.get("LOG_TO_STDOUT")
+log_to_stdout = os.getenv("LOG_TO_STDOUT")
 
 # Set defaults from environment variables first
 # Folders
 if not log_to_stdout:
-    logs_dir = os.environ.get("BUMPER_LOGS") or os.path.join(bumper_dir, "logs")
+    logs_dir = os.getenv("BUMPER_LOGS") or os.path.join(bumper_dir, "logs")
     os.makedirs(logs_dir, exist_ok=True)  # Ensure logs directory exists or create
-data_dir = os.environ.get("BUMPER_DATA") # or os.path.join(bumper_dir, "data")
+data_dir = os.getenv("BUMPER_DATA") # or os.path.join(bumper_dir, "data")
 os.makedirs(data_dir, exist_ok=True)  # Ensure data directory exists or create
-certs_dir = os.environ.get("BUMPER_CERTS") # or os.path.join(bumper_dir, "certs")
+certs_dir = os.getenv("BUMPER_CERTS") # or os.path.join(bumper_dir, "certs")
 os.makedirs(certs_dir, exist_ok=True)  # Ensure certs directory exists or create
 
 
 # Certs
-ca_cert = os.environ.get("BUMPER_CA") or os.path.join(certs_dir, "ca.crt")
-server_cert = os.environ.get("BUMPER_CERT") or os.path.join(certs_dir, "bumper.crt")
-server_key = os.environ.get("BUMPER_KEY") or os.path.join(certs_dir, "bumper.key")
+ca_cert = os.getenv("BUMPER_CA") or os.path.join(certs_dir, "ca.crt")
+server_cert = os.getenv("BUMPER_CERT") or os.path.join(certs_dir, "bumper.crt")
+server_key = os.getenv("BUMPER_KEY") or os.path.join(certs_dir, "bumper.key")
 
 # Listeners
-bumper_listen = os.environ.get("BUMPER_LISTEN") or socket.gethostbyname(
+bumper_listen = os.getenv("BUMPER_LISTEN") or socket.gethostbyname(
     socket.gethostname()
 )
 
-bumper_announce_ip = os.environ.get("BUMPER_ANNOUNCE_IP") or bumper_listen
+bumper_announce_ip = os.getenv("BUMPER_ANNOUNCE_IP") or bumper_listen
 
 # Only import if enabled
 enable_mqtt = True
 enable_xmpp = True
-enable_mqtt = strtobool(os.environ.get("ENABLE_MQTT"))
-enable_xmpp = strtobool(os.environ.get("ENABLE_XMPP"))
+enable_mqtt = strtobool(os.getenv("ENABLE_MQTT"))
+enable_xmpp = strtobool(os.getenv("ENABLE_XMPP"))
 if enable_mqtt:
     from bumper.mqttserver import MQTTServer, MQTTHelperBot
 if enable_xmpp:
     from bumper.xmppserver import XMPPServer
 # Other
-bumper_debug = strtobool(os.environ.get("BUMPER_DEBUG")) or False
+bumper_debug = strtobool(os.getenv("BUMPER_DEBUG")) or False
 use_auth = False
 token_validity_seconds = 3600  # 1 hour
 oauth_validity_days = 15
