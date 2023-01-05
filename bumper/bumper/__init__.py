@@ -408,9 +408,9 @@ def main(argv=None):
         )
         parser.add_argument("--debug", action="store_true", help="enable debug logs")
 
-        parser.add_argument("--enable_xmpp", action="store_true", help="enable xmpp server")
+        parser.add_argument("--disable_xmpp", action="store_false", help="enable xmpp server")
 
-        parser.add_argument("--enable_mqtt", action="store_true", help="enable mqtt server")
+        parser.add_argument("--disable_mqtt", action="store_false", help="enable mqtt server")
 
         args = parser.parse_args(args=argv)
 
@@ -423,11 +423,11 @@ def main(argv=None):
         if args.announce:
             bumper_announce_ip = args.announce
 
-        if args.enable_xmpp:
-            bumper_xmpp = True
+        if args.disable_xmpp:
+            bumper_xmpp = False
 
-        if args.enable_mqtt:
-            bumper_mqtt = True
+        if args.disable_mqtt:
+            bumper_mqtt = False
 
         asyncio.run(start())
 
