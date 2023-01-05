@@ -23,8 +23,8 @@ ports_description:
 environment:
   PGID: "1000"
   PUID: "1000"
-  BUMPER_DATA: /share/
-  BUMPER_CERTS: /ssl/
+  BUMPER_DATA: /share/bumper_data
+  BUMPER_CERTS: /ssl/bumper_certs
   LOG_TO_STDOUT: "True"
 map:
   - ssl:rw
@@ -37,9 +37,9 @@ schema:
   ENABLE_XMPP: bool
   ENABLE_MQTT: bool
 options:
-  BUMPER_ANNOUNCE_IP: 
-  TZ: Europe/Rome
+  BUMPER_ANNOUNCE_IP: 192.168.21.40
+  TZ: America/New_York
   BUMPER_LISTEN: 0.0.0.0
-  BUMPER_DEBUG: false
+  BUMPER_DEBUG: true
   ENABLE_XMPP: true
   ENABLE_MQTT: true
