@@ -234,13 +234,18 @@ async def start():
         return
 
     bumperlog.info("Starting Bumper")
-
+    bumperlog.info("mqtt is")
+    bumperlog.info(bumper_mqtt)
+    bumperlog.info("xmpp is")
+    bumperlog.info(bumper_xmpp)
     if bumper_mqtt:
         bumperlog.info("Starting MQTT server")
         global mqtt_server
         mqtt_server = MQTTServer((bumper_listen, mqtt_listen_port))
         global mqtt_helperbot
         mqtt_helperbot = MQTTHelperBot((bumper_listen, mqtt_listen_port))
+    else:
+        bumperlog.info("NOT Starting MQTT server")
     
     global conf_server
     conf_server = ConfServer((bumper_listen, conf1_listen_port), usessl=True)
@@ -251,6 +256,8 @@ async def start():
         bumperlog.info("Starting XMPP server")
         global xmpp_server
         xmpp_server = XMPPServer((bumper_listen, xmpp_listen_port))
+    else:
+        bumperlog.info("Not Starting XMPP server")
 
     if bumper_mqtt:
         # Start MQTT Server
