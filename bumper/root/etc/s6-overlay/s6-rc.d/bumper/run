@@ -36,6 +36,6 @@ bashio::log.info "MQTT Server active is ${ENABLE_MQTT}"
 bashio::log.info "python command ran is:"
 bashio::log.info "python3 -m bumper ${argline}"
 
-#cd /
+cd /
 
 exec python3 -m bumper ${argline}
