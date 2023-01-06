@@ -32,7 +32,8 @@ RUN apk add --no-cache nginx nginx-mod-stream openssl curl ca-certificates
 # install required python packages
 RUN pip3 install -r requirements.txt
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY /nginx/nginx/ /etc/services.d/nginx/
+COPY /nginx/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /bumper
 
@@ -44,7 +45,7 @@ RUN chmod a+x /create_certs/* /create_certs/src/*
 COPY data/ /share/bumper-data
 COPY certs/ /ssl/bumper-certs
 
-COPY run.sh /
-RUN chmod a+x /run.sh
+COPY run.sh /bumper
+RUN chmod a+x /bumper/run.sh
 
-CMD [ "/run.sh" ]
+CMD [ "/bumper/run.sh" ]

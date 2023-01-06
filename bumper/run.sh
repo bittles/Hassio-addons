@@ -33,7 +33,7 @@ echo "Listen IP is ${BUMPER_LISTEN}"
 echo "Debug is ${BUMPER_DEBUG}"
 echo "XMPP Server active is ${ENABLE_XMPP}"
 echo "MQTT Server active is ${ENABLE_MQTT}"
-echo "python module arguments are:"
-echo "${argline}"
+echo "python command ran is:"
+echo "python3 -m bumper ${argline}"
 
 python3 -m bumper ${argline}
