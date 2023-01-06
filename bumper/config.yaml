@@ -38,6 +38,6 @@ schema:
 options:
   announce_ip: 192.168.21.40
   time_zone: America/New_York
-  debug_logs: true
-  disable_xmpp_server: false
-  disable_mqtt_server: false
+  debug_logs: True
+  disable_xmpp_server: False
+  disable_mqtt_server: False
