@@ -21,13 +21,13 @@ fi
 
 if [ "${DISABLE_XMPP}" = true ]
 then
-    argline+=" --disable-xmpp"
+    argline+=" --disablexmpp"
     ENABLE_XMPP=false
 fi
 
 if [ "${DISABLE_MQTT}" = true ]
 then
-    argline+=" --disable-mqtt"
+    argline+=" --disablemqtt"
     ENABLE_MQTT=false
 fi
 
