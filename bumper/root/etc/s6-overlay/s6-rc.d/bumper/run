@@ -14,21 +14,21 @@ DISABLE_XMPP=$(bashio::config 'disable_xmpp_server')
 
 argline="--listen ${BUMPER_LISTEN} --announce ${BUMPER_ANNOUNCE_IP}"
 
-if [ "${BUMPER_DEBUG}" = True ]
+if [ "${BUMPER_DEBUG}" = true ]
 then
     argline+=" --debug"
 fi
 
-if [ "${DISABLE_XMPP}" = True ]
+if [ "${DISABLE_XMPP}" = true ]
 then
     argline+=" --disable-xmpp"
-    ENABLE_XMPP=False
+    ENABLE_XMPP=false
 fi
 
-if [ "${DISABLE_MQTT}" = True ]
+if [ "${DISABLE_MQTT}" = true ]
 then
     argline+=" --disable-mqtt"
-    ENABLE_MQTT=False
+    ENABLE_MQTT=false
 fi
 
 bashio::log.info "Announce IP is ${BUMPER_ANNOUNCE_IP}"
