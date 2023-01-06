@@ -28,14 +28,14 @@ then
 	ENABLE_MQTT=false
 fi
 
-echo "Announce IP is ${BUMPER_ANNOUNCE_IP}"
-echo "Listen IP is ${BUMPER_LISTEN}"
-echo "Debug is ${BUMPER_DEBUG}"
-echo "XMPP Server active is ${ENABLE_XMPP}"
-echo "MQTT Server active is ${ENABLE_MQTT}"
-echo "python command ran is:"
-echo "python3 -m bumper ${argline}"
+bashio::log.info "Announce IP is ${BUMPER_ANNOUNCE_IP}"
+bashio::log.info "Listen IP is ${BUMPER_LISTEN}"
+bashio::log.info "Debug is ${BUMPER_DEBUG}"
+bashio::log.info "XMPP Server active is ${ENABLE_XMPP}"
+bashio::log.info "MQTT Server active is ${ENABLE_MQTT}"
+bashio::log.info "python command ran is:"
+bashio::log.info "python3 -m bumper ${argline}"
 
-cd /bumper
+#cd /
 
-python3 -m bumper ${argline}
+exec python3 -m bumper ${argline}
