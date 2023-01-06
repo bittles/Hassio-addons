@@ -37,5 +37,6 @@ WORKDIR /bumper
 
 RUN chmod a+x /create_certs/* /create_certs/src/*
 RUN chmod a+x /bumper/run.sh
+RUN chmod a+x /etc/services.d/nginx/*
 
 CMD [ "./run.sh" ]
