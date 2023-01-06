@@ -27,10 +27,10 @@ FROM base
 
 COPY requirements.txt /requirements.txt
 
+RUN apk add --no-cache nginx nginx-mod-stream openssl curl ca-certificates
+
 # install required python packages
 RUN pip3 install -r requirements.txt
-
-RUN apk add --no-cache nginx openssl-dev
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
