@@ -1,5 +1,5 @@
 name: "Bumper"
-version: "1.0.0"
+version: "1.1.0"
 slug: "bumper"
 description: "Local replacement server for Ecovacs robots."
 url: https://github.com/bittles/Hassio-addons/tree/master/bumper
@@ -34,12 +34,9 @@ schema:
   listen_ip: match(([0-9])+(.+))
   time_zone: str
   debug_logs: bool?
-  disable_xmpp_server: bool
-  disable_mqtt_server: bool
+  disable_xmpp_server: bool?
+  disable_mqtt_server: bool?
 options:
-  announce_ip: 192.168.21.40
+  announce_ip: null
   listen_ip: 0.0.0.0
   time_zone: America/New_York
-  debug_logs: False
-  disable_xmpp_server: False
-  disable_mqtt_server: True
