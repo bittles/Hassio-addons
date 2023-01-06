@@ -192,13 +192,13 @@ if bumper_xmpp:
 logging.getLogger("asyncio").setLevel(logging.CRITICAL + 1)  # Ignore this logger
 
 if bumper_mqtt:
-    mqtt_listen_port = 8883
+    mqtt_listen_port = 88833
 
-conf1_listen_port = 443
-conf2_listen_port = 8007
+conf1_listen_port = 4433
+conf2_listen_port = 80077
 
 if bumper_xmpp:
-    xmpp_listen_port = 5223
+    xmpp_listen_port = 52233
 
 
 async def start():
