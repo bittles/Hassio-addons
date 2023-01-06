@@ -31,6 +31,7 @@ map:
   - share:rw
 schema:
   announce_ip: match(([0-9])+(.+))
+  listen_ip: match(([0-9])+(.+))?
   time_zone: str
   debug_logs: bool?
   disable_xmpp_server: bool
