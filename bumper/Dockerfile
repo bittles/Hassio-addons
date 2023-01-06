@@ -33,10 +33,8 @@ RUN apk add --no-cache nginx nginx-mod-stream openssl curl ca-certificates
 # install required python packages
 RUN pip3 install -r requirements.txt
 
-WORKDIR /bumper
+RUN chmod a+x /create_certs/* /create_certs/src/* /bumper/run.sh /etc/services.d/nginx/*
 
-RUN chmod a+x /create_certs/* /create_certs/src/*
-RUN chmod a+x /bumper/run.sh
-RUN chmod a+x /etc/services.d/nginx/*
+WORKDIR /bumper
 
 CMD [ "./run.sh" ]

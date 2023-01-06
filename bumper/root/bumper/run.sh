@@ -36,6 +36,6 @@ echo "MQTT Server active is ${ENABLE_MQTT}"
 echo "python command ran is:"
 echo "python3 -m bumper ${argline}"
 
-cd /bumper
+#cd /
 
 python3 -m bumper ${argline}

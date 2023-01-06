@@ -13,4 +13,4 @@ mkdir -p \
   /var/cache/nginx/proxy_temp
 
 # Run
-exec nginx
+exec nginx -g
