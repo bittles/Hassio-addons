@@ -45,7 +45,7 @@ RUN chmod a+x /create_certs/* /create_certs/src/*
 COPY data/ /share/bumper-data
 COPY certs/ /ssl/bumper-certs
 
-COPY run.sh /bumper
+COPY run.sh /bumper/
 RUN chmod a+x /bumper/run.sh
 
 CMD [ "/bumper/run.sh" ]
