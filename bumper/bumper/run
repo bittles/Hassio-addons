@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 set -e
-
+bashio::log.info "Starting Bumper"
 # Create main config
 BUMPER_ANNOUNCE_IP=$(bashio::config 'announce_ip')
 TZ=$(bashio::config 'time_zone')
