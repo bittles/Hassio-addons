@@ -6,8 +6,11 @@ BUMPER_ANNOUNCE_IP=$(bashio::config 'announce_ip')
 TZ=$(bashio::config 'time_zone')
 BUMPER_LISTEN=$(bashio::config 'announce_ip')
 BUMPER_DEBUG=$(bashio::config 'debug_logs')
-ENABLE_XMPP=true
-ENABLE_MQTT=true
+ENABLE_XMPP=True
+ENABLE_MQTT=True
+
+DISABLE_MQTT=$(bashio::config 'disable_mqtt_server')
+DISABLE_XMPP=$(bashio::config 'disable_xmpp_server')
 
 argline="--listen ${BUMPER_LISTEN} --announce ${BUMPER_ANNOUNCE_IP}"
 
@@ -16,16 +19,16 @@ then
     argline+=" --debug"
 fi
 
-if [ "$(bashio::config 'disable_xmpp_server')" = true ]
+if [ "${DISABLE_XMPP}" = true ]
 then
     argline+=" --disable-xmpp"
-	ENABLE_XMPP=false
+    ENABLE_XMPP=False
 fi
 
-if [ "$(bashio::config 'disable_mqtt_server')" = true ]
+if [ "${DISABLE_MQTT}" = true ]
 then
     argline+=" --disable-mqtt"
-	ENABLE_MQTT=false
+    ENABLE_MQTT=False
 fi
 
 bashio::log.info "Announce IP is ${BUMPER_ANNOUNCE_IP}"
