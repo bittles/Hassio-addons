@@ -1,28 +1,26 @@
-name: "Inadyn Bittles fork"
-slug: "inadyn-bittles"
-url: https://github.com/bittles/Hassio-addons
-version: "2.10.0"
-
-arch:
+"name": "Inadyn Bittles fork"
+"slug": "inadyn-bittles"
+"url": https://github.com/bittles/Hassio-addons
+"version": "2.10.0"
+"arch":
   - aarch64
   - amd64
   - armv7
   - amd64
   - i386
-
-codenotary: "bittles.github@gmail.com"
-description: "Inadyn is a small and simple Dynamic DNS, DDNS, client with HTTPS support. A large number of dynamic dns providers are supported (https://github.com/troglobit/inadyn#supported-providers). For those that are not, you can use a custom provider as per this project's documentation (https://github.com/nalipaz/hassio-addons/blob/master/README.md)"
-host_network: true
+"codenotary": "bittles.github@gmail.com"
+"description": "Inadyn is a small and simple Dynamic DNS, DDNS, client with HTTPS support. A large number of dynamic dns providers are supported (https://github.com/troglobit/inadyn#supported-providers). For those that are not, you can use a custom provider as per this project's documentation (https://github.com/nalipaz/hassio-addons/blob/master/README.md)"
+"host_network": true
 #  "image": "ghcr.io/alexbelgium/inadyn-{arch}",
-map:
+"map":
   - ssl
-options:
+"options":
   providers:
     hostname: dynamic-subdomain.example.com
     password: password
     provider: yourprovider
     username: username
-schema:
+"schema":
   allow_ipv6: bool?
   fake_address: bool?
   forced_update: int?
