@@ -29,6 +29,8 @@ schema:
   iface: str?
   iterations: int?
   period: int?
+  secure_ssl: bool?
+  verify_address: bool?
   providers:
     - append_myip: bool?
       checkip_command: str?
@@ -47,5 +49,3 @@ schema:
       user_agent: str?
       username: str
       wildcard: bool?
-   secure_ssl: bool?
-   verify_address: bool?
