@@ -30,22 +30,22 @@ schema:
   iterations: int?
   period: int?
   providers:
-    append_myip: bool?
-    checkip_command: str?
-    checkip_path: str?
-    checkip_server: str?
-    checkip_ssl: bool?
-    custom_provider: bool?
-    ddns_path: str?
-    ddns_server: str?
-    hostname: str
-    password: str?
-    provider: str
-    proxied: bool?
-    ssl: bool?
-    ttl: int?
-    user_agent: str?
-    username: str
-    wildcard: bool?
+    - append_myip: bool?
+      checkip_command: str?
+      checkip_path: str?
+      checkip_server: str?
+      checkip_ssl: bool?
+      custom_provider: bool?
+      ddns_path: str?
+      ddns_server: str?
+      hostname: str
+      password: str?
+      provider: str
+      proxied: bool?
+      ssl: bool?
+      ttl: int?
+      user_agent: str?
+      username: str
+      wildcard: bool?
    secure_ssl: bool?
    verify_address: bool?
