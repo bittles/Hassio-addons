@@ -31,7 +31,9 @@ RUN apk --no-cache add --virtual .build-dependencies \
 
 WORKDIR /root
 COPY . ./
-RUN ./autogen.sh && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var && make install
+RUN ./autogen.sh 
+RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var 
+RUN make install
 
 FROM builder as base
 COPY /usr/sbin/inadyn /usr/sbin/inadyn
