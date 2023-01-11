@@ -30,7 +30,7 @@ RUN apk --no-cache add --virtual .build-dependencies \
   make
 
 WORKDIR /root
-COPY . ./
+COPY ./src/* ./
 RUN ./autogen.sh 
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var 
 RUN make install
