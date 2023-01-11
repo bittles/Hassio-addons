@@ -14,8 +14,37 @@
 # 1 Build Image #
 #################
 
-FROM troglobit/inadyn:latest
+# FROM troglobit/inadyn:latest
+ARG BUILD_FROM
+# build from source in folder with hass base
+FROM $BUILD_FROM as builder
 
+RUN apk --no-cache add --virtual .build-dependencies \
+  autoconf \
+  automake \
+  confuse-dev \
+  gcc \
+  gnutls-dev \
+  libc-dev \
+  libtool \
+  make
+
+WORKDIR /root
+COPY . ./
+RUN ./autogen.sh && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var && make install
+
+FROM builder as base
+COPY /usr/sbin/inadyn /usr/sbin/inadyn
+COPY /usr/share/doc/inadyn /usr/share/doc/inadyn
+
+FROM $BUILD_FORM as base
+
+RUN apk --no-cache add \
+  ca-certificates \
+  confuse \
+  gnutls
+
+FROM base
 ##################
 # 2 Modify Image #
 ##################
@@ -114,11 +143,11 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="alexbelgium (https://github.com/alexbelgium)" \
+    maintainer="alexbelgium (https://github.com/bittles)" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.vendor="Home Assistant Add-ons" \
-    org.opencontainers.image.authors="alexbelgium (https://github.com/alexbelgium)" \
+    org.opencontainers.image.authors="alexbelgium (https://github.com/bittles)" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.url="https://github.com/alexbelgium" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
