@@ -55,7 +55,7 @@
     "secure_ssl": "bool?",
     "verify_address": "bool?"
   },
-  "slug": "inadyn",
-  "url": "https://github.com/alexbelgium/hassio-addons",
+  "slug": "inadyn-bittles",
+  "url": "https://github.com/bittles/Hassio-addons",
   "version": "2.10.0"
 }
