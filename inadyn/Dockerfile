@@ -39,14 +39,14 @@ FROM builder as base
 COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
 COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
 
-FROM $BUILD_FORM as base
-
+#FROM $BUILD_FORM as base
+FROM base
 RUN apk --no-cache add \
   ca-certificates \
   confuse \
   gnutls
 
-FROM base
+#FROM base
 ##################
 # 2 Modify Image #
 ##################
