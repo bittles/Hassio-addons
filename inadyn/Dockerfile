@@ -35,7 +35,7 @@ RUN ./autogen.sh
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var 
 RUN make install
 
-FROM $BUILD_FORM as base
+FROM $BUILD_FROM as base
 #FROM builder as base
 COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
 COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
