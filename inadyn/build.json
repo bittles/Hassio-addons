@@ -1,10 +1,10 @@
 {
   "build_from": {
-    "aarch64": "troglobit/inadyn:latest",
-    "amd64": "troglobit/inadyn:latest",
-    "armv7": "troglobit/inadyn:latest"
+    "aarch64": "ghcr.io/home-assistant/aarch64-base:3.16",
+    "amd64": "ghcr.io/home-assistant/amd64-base:3.16",
+    "armv7": "ghcr.io/home-assistant/armv7-base:3.16"
   },
   "codenotary": {
-    "signer": "alexandrep.github@gmail.com"
+    "signer": "bittles.github@gmail.com"
   }
 }
