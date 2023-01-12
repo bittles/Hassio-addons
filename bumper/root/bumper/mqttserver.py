@@ -3,10 +3,10 @@
 import logging
 import asyncio
 import os
-import hbmqtt
-from hbmqtt.broker import Broker
-from hbmqtt.client import MQTTClient
-from hbmqtt.mqtt.constants import QOS_0, QOS_1, QOS_2
+import amqtt
+from amqtt.broker import Broker
+from amqtt.client import MQTTClient
+from amqtt.mqtt.constants import QOS_0, QOS_1, QOS_2
 import pkg_resources
 import time
 import bumper
@@ -155,7 +155,7 @@ class MQTTServer:
         try:
             await self.broker.start()
 
-        except hbmqtt.broker.BrokerException as e:
+        except amqtt.broker.BrokerException as e:
             mqttserverlog.exception(e)
             #asyncio.create_task(bumper.shutdown())
             pass
@@ -183,12 +183,12 @@ class MQTTServer:
                 elif key == "allow_anonymous":
                     allow_anon = kwargs["allow_anonymous"] # Set to True to allow anonymous authentication
 
-            # The below adds a plugin to the hbmqtt.broker.plugins without having to futz with setup.py
-            distribution = pkg_resources.Distribution("hbmqtt.broker.plugins")
+            # The below adds a plugin to the amqtt.broker.plugins without having to futz with setup.py
+            distribution = pkg_resources.Distribution("amqtt.broker.plugins")
             bumper_plugin = pkg_resources.EntryPoint.parse(
                 "bumper = bumper.mqttserver:BumperMQTTServer_Plugin", dist=distribution
             )
-            distribution._ep_map = {"hbmqtt.broker.plugins": {"bumper": bumper_plugin}}
+            distribution._ep_map = {"amqtt.broker.plugins": {"bumper": bumper_plugin}}
             pkg_resources.working_set.add(distribution)
 
             # Initialize bot server
@@ -211,7 +211,7 @@ class MQTTServer:
                 "topic-check": {"enabled": False},
             }
 
-            self.broker = hbmqtt.broker.Broker(config=self.default_config)
+            self.broker = amqtt.broker.Broker(config=self.default_config)
 
         except Exception as e:
             mqttserverlog.exception("{}".format(e))
