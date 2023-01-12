@@ -3,27 +3,27 @@
 
 # ARG FROM_ARCH=$BUILD_ARCH
 ARG BUILD_FROM
-FROM $BUILD_FROM as builder
+FROM $BUILD_FROM
 
 # Download QEMU 
-ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz .
-RUN tar zxvf qemu-3.0.0+resin-arm.tar.gz --strip-components 1
-ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-aarch64.tar.gz .
-RUN tar zxvf qemu-3.0.0+resin-aarch64.tar.gz --strip-components 1
+#ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz .
+#RUN tar zxvf qemu-3.0.0+resin-arm.tar.gz --strip-components 1
+#ADD https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-aarch64.tar.gz .
+#RUN tar zxvf qemu-3.0.0+resin-aarch64.tar.gz --strip-components 1
 
-FROM builder as base
+#FROM builder as base
 
 # Add QEMU
 # Add QEMU
-COPY --from=builder qemu-arm-static /usr/bin
-COPY --from=builder qemu-aarch64-static /usr/bin
+#COPY qemu-arm-static /usr/bin
+#COPY qemu-aarch64-static /usr/bin
 
-FROM base as builderfinal
+#FROM base as builderfinal
 
 # add build utils (gcc, others)
-RUN apk add build-base
+#RUN apk add --no-cache build-base
 
-FROM base
+#FROM base
 
 # Copy only required folders instead of all
 COPY root/ /
