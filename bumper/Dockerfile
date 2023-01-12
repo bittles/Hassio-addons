@@ -21,7 +21,7 @@ FROM $BUILD_FROM
 #FROM base as builderfinal
 
 # add build utils (gcc, others)
-RUN apk add build-base
+#RUN apk add build-base
 
 #FROM base
 
