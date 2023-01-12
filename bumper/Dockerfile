@@ -28,7 +28,7 @@ FROM $BUILD_FROM
 # Copy only required folders instead of all
 COPY root/ /
 
-RUN apk add --no-cache nginx nginx-mod-stream openssl curl ca-certificates
+RUN apk add --no-cache nginx nginx-mod-stream openssl ca-certificates
 
 # install required python packages
 RUN pip3 install -r requirements.txt
