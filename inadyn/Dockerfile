@@ -16,7 +16,7 @@
 
 # FROM troglobit/inadyn:latest
 ARG BUILD_FROM
-# build from source in folder with hass base
+# build from source in folder with hass addon base
 FROM $BUILD_FROM as builder
 
 RUN apk --no-cache add --virtual .build-dependencies \
@@ -32,21 +32,22 @@ RUN apk --no-cache add --virtual .build-dependencies \
 WORKDIR /root
 COPY inadynsource/ ./
 RUN ./autogen.sh 
-RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var 
+RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/data 
 RUN make install
+
 
 FROM $BUILD_FROM as base
 #FROM builder as base
 COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
 COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
 
-FROM base
-RUN apk --no-cache add \
-  ca-certificates \
-  confuse \
-  gnutls
-
 #FROM base
+#RUN apk --no-cache add \
+#  ca-certificates \
+#  confuse \
+#  gnutls
+
+FROM base
 ##################
 # 2 Modify Image #
 ##################
@@ -92,12 +93,12 @@ ENV PACKAGES="curl \
 
 # Automatic apps & bashio
 # hadolint ignore=SC2015
-RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-    && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/automatic_packages.sh" --output /automatic_packages.sh \
-    && chmod 777 /automatic_packages.sh \
-    && eval /./automatic_packages.sh "${PACKAGES:-}" \
-    && rm /automatic_packages.sh
+#RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
+#    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
+#    && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/automatic_packages.sh" --output /automatic_packages.sh \
+#    && chmod 777 /automatic_packages.sh \
+#    && eval /./automatic_packages.sh "${PACKAGES:-}" \
+#    && rm /automatic_packages.sh
 
 # Install mustache
 # spellcheck disable=SC2015
@@ -116,7 +117,9 @@ RUN apk add --no-cache \
     go get -u github.com/quantumew/mustache-cli &&\
     cp "$GOPATH"/bin/* /usr/bin/ && \
     rm -rf "$GOPATH" /var/cache/apk/* /tmp/src &&\
-    apk del .build-deps xz build-base || true
+    apk del --no-cache --purge .build-deps xz build-base || true
+
+#RUN apk del --no-cache --purge .build-dependencies
 
 ################
 # 4 Entrypoint #
