@@ -17,7 +17,8 @@
 # FROM troglobit/inadyn:latest
 ARG BUILD_FROM
 # build from source in folder with hass addon base
-FROM $BUILD_FROM as builder
+#FROM $BUILD_FROM as builder
+FROM $BUILD_FROM
 
 RUN apk --no-cache add --virtual .build-dependencies \
   autoconf \
@@ -29,25 +30,28 @@ RUN apk --no-cache add --virtual .build-dependencies \
   libtool \
   make
 
-WORKDIR /root
+WORKDIR /root/source
 COPY inadynsource/ ./
 RUN ./autogen.sh 
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/data 
 RUN make install
 
+WORKDIR /root
+RUN apk del --no-cache --purge .build-dependencies &&\
+    rm -rf /root/source
 
-FROM $BUILD_FROM as base
+#FROM $BUILD_FROM as base
 #FROM builder as base
-COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
-COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
+#COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
+#COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
 
 #FROM base
-#RUN apk --no-cache add \
+RUN apk --no-cache add \
 #  ca-certificates \
-#  confuse \
-#  gnutls
+  confuse \
+  gnutls
 
-FROM base
+#FROM base
 ##################
 # 2 Modify Image #
 ##################
@@ -118,8 +122,6 @@ RUN apk add --no-cache \
     cp "$GOPATH"/bin/* /usr/bin/ && \
     rm -rf "$GOPATH" /var/cache/apk/* /tmp/src &&\
     apk del --no-cache --purge .build-deps xz build-base || true
-
-#RUN apk del --no-cache --purge .build-dependencies
 
 ################
 # 4 Entrypoint #
