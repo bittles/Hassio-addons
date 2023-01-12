@@ -123,6 +123,8 @@ RUN apk add --no-cache \
     rm -rf "$GOPATH" /var/cache/apk/* /tmp/src &&\
     apk del --no-cache --purge .build-deps xz build-base || true
 
+RUN ln -s /data/cache /root/.cache/inadyn
+
 ################
 # 4 Entrypoint #
 ################
