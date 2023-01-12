@@ -47,7 +47,7 @@ RUN apk del --no-cache --purge .build-dependencies &&\
 
 #FROM base
 RUN apk --no-cache add \
-#  ca-certificates \
+  ca-certificates \
   confuse \
   gnutls
 
@@ -82,10 +82,10 @@ RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
 ARG MODULES="00-banner.sh 01-custom_script.sh"
 
 # Automatic modules download
-RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-    && apt-get update && apt-get install -yqq --no-install-recommends ca-certificates || apk add --no-cache ca-certificates >/dev/null || true \
-    && mkdir -p /etc/cont-init.d \
+#RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
+#    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
+#    && apt-get update && apt-get install -yqq --no-install-recommends ca-certificates || apk add --no-cache ca-certificates >/dev/null || true \
+RUN mkdir -p /etc/cont-init.d \
     && for scripts in $MODULES; do echo "$scripts" && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/$scripts" -o /etc/cont-init.d/"$scripts" && [ "$(sed -n '/\/bin/p;q' /etc/cont-init.d/"$scripts")" != "" ] || (echo "script failed to install $scripts" && exit 1); done \
     && chmod -R 755 /etc/cont-init.d
 
@@ -107,13 +107,13 @@ ENV PACKAGES="curl \
 # Install mustache
 # spellcheck disable=SC2015
 # hadolint ignore=SC2015,DL3017
-RUN apk add --no-cache \
-    go \
-    npm \
-    xz \
+#RUN apk add --no-cache \
+#    go \
+#    npm \
+#    xz \
     #    && npm install mustache-cli --global
-    && apk upgrade --no-cache &&\
-    apk add --no-cache --virtual .build-deps\
+#    && apk upgrade --no-cache &&\
+RUN apk add --no-cache --virtual .build-deps\
     build-base\
     git\
     go &&\
@@ -121,7 +121,7 @@ RUN apk add --no-cache \
     go get -u github.com/quantumew/mustache-cli &&\
     cp "$GOPATH"/bin/* /usr/bin/ && \
     rm -rf "$GOPATH" /var/cache/apk/* /tmp/src &&\
-    apk del --no-cache --purge .build-deps xz build-base || true
+    apk del --no-cache --purge .build-deps xz build-base go git || true
 
 RUN ln -s /data/cache /root/.cache/inadyn
 
@@ -158,7 +158,7 @@ LABEL \
     org.opencontainers.image.vendor="Home Assistant Add-ons" \
     org.opencontainers.image.authors="alexbelgium (https://github.com/bittles)" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="https://github.com/alexbelgium" \
+    org.opencontainers.image.url="https://github.com/bittles" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
     org.opencontainers.image.created=${BUILD_DATE} \
