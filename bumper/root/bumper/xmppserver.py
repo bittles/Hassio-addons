@@ -314,8 +314,8 @@ class XMPPAsyncClient:
             ):  # No permissions, usually if bot was last on Ecovac network, Bumper will try to add fuid user as owner
                 if self.type == self.BOT:
                     xmppserverlog.info("Bot reported user has no permissions, Bumper will attempt to add user to bot. This is typical if bot was last on Ecovacs Network.")
-                    xquery = xml.getchildren()
-                    ctl = xquery[0].getchildren()
+                    xquery = list(xml)
+                    ctl = list(xquery)[0]
                     if "error" in ctl[0].attrib:
                         ctlerr = ctl[0].attrib["error"]
                         adminuser = ctlerr.replace("permission denied, please contact ", "")
@@ -570,8 +570,8 @@ class XMPPAsyncClient:
             if client:
                 bumper.client_set_xmpp(client["resource"], True)
 
-            clientbindxml = xml.getchildren()
-            clientresourcexml = clientbindxml[0].getchildren()
+            clientbindxml = list(xml)
+            clientresourcexml = list(clientbindxml)[0]
             if self.devclass:  # its a bot
                 self.name = "XMPP_Client_{}_{}".format(self.uid, self.devclass)
                 self.bumper_jid = "{}@{}.ecorobot.net/atom".format(
