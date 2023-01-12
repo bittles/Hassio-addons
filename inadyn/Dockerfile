@@ -33,7 +33,7 @@ RUN apk --no-cache add --virtual .build-dependencies \
 WORKDIR /root/source
 COPY inadynsource/ ./
 RUN ./autogen.sh 
-RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/data 
+RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/usr
 RUN make install
 
 WORKDIR /root
