@@ -16,7 +16,7 @@ if [ -f /share/inadyn-cache ]; then
 fi
 rm -rf /root/.cache/inadyn
 ln -s /share/inadyn-cache /root/.cache/inadyn
-chmod a+rw /root/.cache/inadyn
+#chmod a+rw /root/.cache/inadyn
 
 ##############
 # Launch App #
