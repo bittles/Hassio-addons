@@ -1,3 +1,7 @@
+## 1.2.1
+- Give the addon the usual HASS banner
+- Try apparmor out
+
 ## 1.2.0
 - Transition hbmqtt to amqtt for mqtt server
 - Switch x.getchildren() to list(x) for newer python
