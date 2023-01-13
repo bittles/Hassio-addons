@@ -34,7 +34,7 @@ RUN apk add --no-cache nginx nginx-mod-stream openssl ca-certificates
 RUN pip3 install -r requirements.txt
 
 RUN chmod a+x /create_certs/* /create_certs/src/*
-RUN chmod a+x /etc/s6-overlay/s6-rc.d/bumper/* /etc/s6-overlay/s6-rc.d/nginx/*
+RUN chmod a+x /etc/s6-overlay/s6-rc.d/bumper/* /etc/s6-overlay/s6-rc.d/nginx/* /etc/cont-init.d/*
 
 WORKDIR /bumper
 

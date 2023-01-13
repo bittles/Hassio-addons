@@ -90,10 +90,10 @@ RUN mkdir -p /etc/cont-init.d \
     && chmod -R 755 /etc/cont-init.d
 
 # Manual apps
-ENV PACKAGES="curl \
-    jq \
-    bash \
-    build-base libressl-dev ca-certificates npm"
+#ENV PACKAGES="curl \
+#    jq \
+#    bash \
+#    build-base libressl-dev ca-certificates npm"
 
 # Automatic apps & bashio
 # hadolint ignore=SC2015
@@ -123,7 +123,7 @@ RUN apk add --no-cache --virtual .build-deps\
     rm -rf "$GOPATH" /var/cache/apk/* /tmp/src &&\
     apk del --no-cache --purge .build-deps xz build-base go git || true
 
-RUN ln -s /data/cache /root/.cache/inadyn
+RUN ln -s /share/inadyn-cache /root/.cache/inadyn
 
 ################
 # 4 Entrypoint #
