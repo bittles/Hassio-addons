@@ -14,7 +14,8 @@ fi
 
 ## If cache folder not exit then make
 if [ -f /share/inadyn-cache ]; then
-    mkdir -p /share/inadyn-cache
+    mkdir /share/inadyn-cache
+    chmod +w /share/inadyn-cache
 fi
 
 ####################
