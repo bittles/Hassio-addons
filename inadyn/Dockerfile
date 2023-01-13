@@ -124,6 +124,7 @@ RUN apk add --no-cache --virtual .build-deps\
     apk del --no-cache --purge .build-deps xz build-base go git || true
 
 RUN ln -s /share/inadyn-cache /root/.cache/inadyn
+RUN rm -rf /root/go-build /media/* /usr/share/doc /usr/share/man /usr/share/misc
 
 ################
 # 4 Entrypoint #
