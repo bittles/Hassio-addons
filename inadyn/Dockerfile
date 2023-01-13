@@ -123,11 +123,12 @@ RUN apk add --no-cache --virtual .build-deps\
     rm -rf "$GOPATH" /var/cache/apk/* /tmp/src &&\
     apk del --no-cache --purge .build-deps xz build-base go git || true
 
-WORKDIR /share
-RUN mkdir -p inadyn-cache
-WORKDIR /
-RUN ln -s /share/inadyn-cache /root/.cache/inadyn
-WORKDIR /root
+#WORKDIR /share
+#RUN mkdir -p inadyn-cache
+
+#WORKDIR /
+#RUN ln -s /share/inadyn-cache /root/.cache/inadyn
+WORKDIR /root/.cache
 RUN rm -rf go-build
 WORKDIR /
 RUN rm -rf /media/* /usr/share/doc /usr/share/man /usr/share/misc
