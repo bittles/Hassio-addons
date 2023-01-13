@@ -12,7 +12,7 @@ mustache-cli /data/options.json /templates/inadyn.mustache >/etc/inadyn.conf
 ## If cache folder not exit then make
 mkdir /share/inadyn-cache
 chmod a+rw /share/inadyn-cache
-rm /root/.cache/inadyn
+rm rf /root/.cache/inadyn
 ln -s /share/inadyn-cache /root/.cache/inadyn
 chmod a+rw /root/.cache/inadyn
 
