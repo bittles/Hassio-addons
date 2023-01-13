@@ -153,11 +153,11 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="alexbelgium (https://github.com/bittles)" \
+    maintainer="bittles (https://github.com/bittles)" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.vendor="Home Assistant Add-ons" \
-    org.opencontainers.image.authors="alexbelgium (https://github.com/bittles)" \
+    org.opencontainers.image.authors="bittles (https://github.com/bittles)" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.url="https://github.com/bittles" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
