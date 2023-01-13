@@ -1,6 +1,7 @@
 name: "Bumper"
 version: "1.2.1"
 slug: "bumper"
+apparmor: true
 description: "Local replacement server for Ecovacs robots."
 url: https://github.com/bittles/Hassio-addons/tree/master/bumper
 arch:
