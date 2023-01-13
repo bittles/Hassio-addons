@@ -14,7 +14,7 @@ if [ -f /share/inadyn-cache ]; then
     mkdir /share/inadyn-cache
     chmod a+r /share/inadyn-cache
 fi
-rm rf /root/.cache/inadyn
+rm -rf /root/.cache/inadyn
 ln -s /share/inadyn-cache /root/.cache/inadyn
 chmod a+rw /root/.cache/inadyn
 
