@@ -22,11 +22,11 @@ options:
   ssl: true
   certfile: fullchain.pem
   keyfile: privkey.pem
-  host_and_port: localhost:7277
+#  host_and_port: localhost:7277
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   ssl: bool
   certfile: str
   keyfile: str
   request_size_limit: int?
-  host_and_port: str?
+#  host_and_port: str?
