@@ -18,7 +18,7 @@ ports_description:
   8099/tcp: Vaultwarden Web interface (not needed for ingress, only for /admin page access)
 map:
   - ssl
-options:
+#options:
 #  ssl: true
 #  certfile: fullchain.pem
 #  keyfile: privkey.pem
