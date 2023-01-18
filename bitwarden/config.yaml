@@ -1,7 +1,7 @@
 ---
-name: Vaultwarden (Bitwarden) URL Fork
+name: Vaultwarden (Bitwarden) Ingress
 version: v0.18.0
-slug: bitwarden-urlfork
+slug: bitwarden-ingress
 description: Open source password management solution
 url: https://github.com/bittles/Hassio-addons
 codenotary: codenotary@frenck.dev
@@ -15,18 +15,18 @@ arch:
 ports:
   8099/tcp: 8099
 ports_description:
-  8099/tcp: Vaultwarden Web interface (not needed for ingress)
+  8099/tcp: Vaultwarden Web interface (not needed for ingress, only for /admin page access)
 map:
   - ssl
 options:
-  ssl: true
-  certfile: fullchain.pem
-  keyfile: privkey.pem
+#  ssl: true
+#  certfile: fullchain.pem
+#  keyfile: privkey.pem
 #  host_and_port: localhost:7277
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
-  ssl: bool
-  certfile: str
-  keyfile: str
+  ssl: bool?
+  certfile: str?
+  keyfile: str?
   request_size_limit: int?
 #  host_and_port: str?
