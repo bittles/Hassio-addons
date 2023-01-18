@@ -13,9 +13,9 @@ arch:
   - amd64
   - armv7
 ports:
-  8080/tcp: 8080
+  8099/tcp: 8099
 ports_description:
-  8080/tcp: Vaultwarden Web interface (not needed for ingress)
+  8099/tcp: Vaultwarden Web interface (not needed for ingress)
 map:
   - ssl
 options:
