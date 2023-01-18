@@ -1,7 +1,7 @@
 ---
 name: Vaultwarden (Bitwarden) URL Fork
 version: v0.18.0
-slug: bitwarden
+slug: bitwarden-urlfork
 description: Open source password management solution
 url: https://github.com/bittles/Hassio-addons
 codenotary: codenotary@frenck.dev
