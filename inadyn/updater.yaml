@@ -1,7 +1,0 @@
-github_beta: true
-last_update: "11-01-2023"
-repository: "bittles/Hassio-addons"
-slug: "inadyn-bittles"
-source: "github"
-upstream_repo: "troglobit/inadyn"
-upstream_version: "2.10.0"
