@@ -3,7 +3,7 @@
 # Home Assistant Community Add-on: Vaultwarden
 # Runs the Nginx daemon
 # ==============================================================================
-bashio::net.wait_for 8089
+bashio::net.wait_for 4110
 
 declare ingress_interface
 declare ingress_port

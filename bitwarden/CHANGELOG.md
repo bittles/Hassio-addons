@@ -1,3 +1,6 @@
+## v0.19.0.3
+- Fix port mapping
+
 ## v0.19.0.2
 - Fix typo, give ingress a panel icon
 
