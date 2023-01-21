@@ -1,3 +1,6 @@
+## v0.19.0.1
+- Bump base image, use variables for iterface and ingress port to fix ingress
+
 ## v0.18.0.6
 - Forgot nginx wont make logs if they dont already exist
 
