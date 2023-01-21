@@ -11,7 +11,7 @@ declare secret_key
 
 # Set defaults
 export DATA_FOLDER=/data
-export ROCKET_PORT=8089
+export ROCKET_PORT=4110
 export ROCKET_WORKERS=2
 
 # Set a random secret, to remove confusing warning from logs.
@@ -74,7 +74,7 @@ fi
 
 # Always enable Websockets
 export WEBSOCKET_ENABLED=true
-export WEBSOCKET_PORT=3019
+export WEBSOCKET_PORT=8070
 
 # Check for logs and make if not there
 LOGSDIR=/data/logs
