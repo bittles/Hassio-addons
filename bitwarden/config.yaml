@@ -1,6 +1,6 @@
 ---
 name: Vaultwarden (Bitwarden) Ingress
-version: v0.18.0.1
+version: v0.18.0.2
 slug: bitwarden-ingress
 description: Open source password management solution
 url: https://github.com/bittles/Hassio-addons
