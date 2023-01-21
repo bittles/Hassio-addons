@@ -8,15 +8,15 @@ codenotary: codenotary@frenck.dev
 init: false
 ingress: true
 ingress_stream: true
-ingress_port: 8088
+#ingress_port: 8089
 arch:
   - aarch64
   - amd64
   - armv7
 ports:
-  8088/tcp: 8088
+  8089/tcp: 8088
 ports_description:
-  8088/tcp: Vaultwarden Web interface (not needed for ingress, only for /admin page access)
+  8089/tcp: Vaultwarden Web interface (not needed for ingress, only for /admin page access)
 map:
   - ssl
 schema:
