@@ -1,3 +1,6 @@
+## v0.18.0.5
+- I hate nginx format, fixing logs
+
 ## v0.18.0.4
 - Add logging see where ingress is failing remotely, probably double reverse proxy
 
