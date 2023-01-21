@@ -1,3 +1,6 @@
+## v0.19.0.4
+- Separate nginx servers for ingress and direct access
+
 ## v0.19.0.3
 - Fix port mapping
 
