@@ -1,4 +1,7 @@
-## v0.19.0.4
+## v0.19.0.6
+- Add ingress proxy param setting
+
+## v0.19.0.5
 - Increase verbosity of ingress error log
 
 ## v0.19.0.4
