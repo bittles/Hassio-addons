@@ -1,3 +1,6 @@
+## v0.18.0.3
+- Fix nginx upstream servers
+
 ## v0.18.0.2
 - Fix startup dependency
 
