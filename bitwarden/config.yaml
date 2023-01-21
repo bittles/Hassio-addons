@@ -7,6 +7,7 @@ url: https://github.com/bittles/Hassio-addons
 codenotary: codenotary@frenck.dev
 init: false
 ingress: true
+ingress_stream: true
 ingress_port: 8088
 arch:
   - aarch64
