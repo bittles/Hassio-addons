@@ -1,3 +1,6 @@
+## v0.18.0.4
+- Add logging see where ingress is failing remotely, probably double reverse proxy
+
 ## v0.18.0.3
 - Fix nginx upstream servers
 
