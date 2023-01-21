@@ -76,6 +76,21 @@ fi
 export WEBSOCKET_ENABLED=true
 export WEBSOCKET_PORT=3019
 
+# Check for logs and make if not there
+LOGSDIR=/data/logs
+if [ ! -d "$LOGSDIR" ]; then
+    mkdir /data/logs
+fi
+ACCESSLOGFILE=/data/logs/access.log
+if [ ! -d "$ACCESSLOGFILE" ]; then
+    touch /data/logs/access.log
+fi
+ERRORLOGFILE=/data/logs/error.log
+if [ ! -d "$ERRORLOGFILE" ]; then
+    touch /data/logs/error.log
+fi
+
+
 # Run the Bitwarden server
 bashio::log.info 'Starting the Vaultwarden server...'
 cd /opt || bashio::exit.nok

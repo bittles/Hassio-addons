@@ -1,3 +1,6 @@
+## v0.18.0.6
+- Forgot nginx wont make logs if they dont already exist
+
 ## v0.18.0.5
 - I hate nginx format, fixing logs
 
