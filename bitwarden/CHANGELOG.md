@@ -1,3 +1,6 @@
+## v0.19.0.2
+- Fix typo, give ingress a panel icon
+
 ## v0.19.0.1
 - Bump base image, use variables for iterface and ingress port to fix ingress
 
