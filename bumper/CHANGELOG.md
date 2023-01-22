@@ -1,3 +1,6 @@
+## 1.2.2
+- Start bumper addon before HASS to avoid errors with ecovacs component
+
 ## 1.2.1
 - Give the addon the usual HASS banner
 - Try apparmor out
