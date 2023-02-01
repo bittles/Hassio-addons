@@ -1,11 +1,10 @@
 ---
 name: Vaultwarden (Bitwarden) Ingress Arm64 Only
-version: v0.19.0.6
-slug: bitwarden-ingress-prebuilt
+version: 0.19.0.6
+slug: bitwarden-ingress-arm64
 description: Open source password management solution
 url: https://github.com/bittles/Hassio-addons
-codenotary: codenotary@frenck.dev
-image: bittles999/vaultwarden-ingress
+image: bittles999/vaultwarden-ingress-arm64
 init: false
 ingress: true
 ingress_stream: true
