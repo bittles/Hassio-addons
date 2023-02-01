@@ -1,0 +1,44 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Home Assistant Community Add-on: Vaultwarden
+# Runs the Nginx daemon
+# ==============================================================================
+bashio::net.wait_for 4110
+
+
+# Check for logs and make if not there
+LOGSDIR=/data/logs
+if [ ! -d "$LOGSDIR" ]; then
+    mkdir /data/logs
+fi
+INGRESSACCESSLOGFILE=/data/logs/access.log
+if [ ! -d "$INGRESSACCESSLOGFILE" ]; then
+    touch /data/logs/ingress-access.log
+fi
+INGRESSERRORLOGFILE=/data/logs/error.log
+if [ ! -d "$INGRESSERRORLOGFILE" ]; then
+    touch /data/logs/ingress-error.log
+fi
+
+DIRECTACCESSLOGFILE=/data/logs/access.log
+if [ ! -d "$DIRECTACCESSLOGFILE" ]; then
+    touch /data/logs/direct-access.log
+fi
+DIRECTERRORLOGFILE=/data/logs/error.log
+if [ ! -d "$DIRECTERRORLOGFILE" ]; then
+    touch /data/logs/direct-error.log
+fi
+
+declare ingress_interface
+declare ingress_port
+
+ingress_port=$(bashio::addon.ingress_port)
+ingress_interface=$(bashio::addon.ip_address)
+
+sed -i "s|%%port%%|${ingress_port}|g" /etc/nginx/servers/ingress.conf
+sed -i "s|%%interface%%|${ingress_interface}|g" /etc/nginx/servers/ingress.conf
+
+
+bashio::log.info "Starting NGinx..."
+
+exec nginx
