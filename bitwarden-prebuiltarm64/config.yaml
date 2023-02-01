@@ -5,7 +5,7 @@ slug: bitwarden-ingress-prebuilt
 description: Open source password management solution
 url: https://github.com/bittles/Hassio-addons
 codenotary: codenotary@frenck.dev
-image: bittles999/vaultwarden-ingress
+image: bittles999/bitvaultprebuildarm64
 init: false
 ingress: true
 ingress_stream: true
