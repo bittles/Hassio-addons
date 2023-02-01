@@ -1,3 +1,5 @@
+# Prebuilt image for arm64, use other addon if multiarch needed
+
 # Forked
 Forked from alexbelgium/hassio-addons/inadyn.  Nearly everything is him.  Rebuilt with hassio-addon base, cleanup build dependencies and redundancies, really try to minimize image footprint, and move the dns cache to the data folder to be able to save.  Image size down from ~730 MB to ~240 MB.
 
