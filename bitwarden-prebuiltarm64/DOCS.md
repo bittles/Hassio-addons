@@ -1,3 +1,5 @@
+# Prebuilt arm64 image only, use other Vaultwarden on my repo for other arches
+
 # Home Assistant Community Add-on: Vaultwarden (Bitwarden)
 
 Bitwarden is an open-source password manager that can store sensitive
