@@ -32,6 +32,7 @@ RUN apk --no-cache add --virtual .build-dependencies \
 
 WORKDIR /root/source
 COPY inadynsource/ ./
+RUN chmod a+x autogen.sh
 RUN ./autogen.sh 
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/usr
 RUN make install
