@@ -2,7 +2,7 @@
 #ARG FROM_ARCH=arm64v8
 
 # ARG FROM_ARCH=$BUILD_ARCH
-ARG BUILD_FROM
+ARG BUILD_FROM="ghcr.io/home-assistant/aarch64-base-python:3.8-alpine3.16"
 FROM $BUILD_FROM
 
 # Download QEMU 
