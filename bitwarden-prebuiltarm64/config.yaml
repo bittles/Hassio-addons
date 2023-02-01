@@ -1,0 +1,27 @@
+---
+name: Vaultwarden (Bitwarden) Ingress
+version: v0.19.0.6
+slug: bitwarden-ingress
+description: Open source password management solution
+url: https://github.com/bittles/Hassio-addons
+codenotary: codenotary@frenck.dev
+image: bittles999/vaultwarden-ingress
+init: false
+ingress: true
+ingress_stream: true
+panel_icon: mdi:form-textbox-password
+#ingress_port: 8089
+arch:
+  - aarch64
+  - amd64
+  - armv7
+ports:
+  6942/tcp: null
+ports_description:
+  6942/tcp: Vaultwarden Web interface (not needed for ingress, only for /admin page access)
+map:
+  - ssl
+schema:
+  log_level: list(trace|debug|info|notice|warning|error|fatal)?
+  request_size_limit: int?
+
