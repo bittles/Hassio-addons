@@ -4,7 +4,7 @@ version: 0.19.0.6
 slug: bitwarden-ingress-arm64
 description: Open source password management solution
 url: https://github.com/bittles/Hassio-addons
-image: bittles999/vaultwarden-ingress-arm64
+image: bittles999/bitvaultprebuildarm64
 init: false
 ingress: true
 ingress_stream: true
