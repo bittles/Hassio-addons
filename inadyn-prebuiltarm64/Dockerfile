@@ -1,23 +1,5 @@
-#============================#
-#  ALEXBELGIUM'S DOCKERFILE  #
-#============================#
-#           _.------.
-#       _.-`    ('>.-`"""-.
-# '.--'`       _'`   _ .--.)
-#    -'         '-.-';`   `
-#    ' -      _.'  ``'--.
-#        '---`    .-'""`
-#               /`
-#=== Home Assistant Addon ===#
-
-#################
-# 1 Build Image #
-#################
-
-# FROM troglobit/inadyn:latest
 ARG BUILD_FROM="ghcr.io/hassio-addons/base:13.0.1"
 # build from source in folder with hass addon base
-#FROM $BUILD_FROM as builder
 FROM $BUILD_FROM
 
 RUN apk --no-cache add --virtual .build-dependencies \
@@ -41,21 +23,12 @@ WORKDIR /root
 RUN apk del --no-cache --purge .build-dependencies &&\
     rm -rf /root/source
 
-#FROM $BUILD_FROM as base
-#FROM builder as base
-#COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
-#COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
-
-#FROM base
 RUN apk --no-cache add \
   ca-certificates \
   confuse \
   gnutls
 
-#FROM base
-##################
 # 2 Modify Image #
-##################
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
@@ -67,9 +40,7 @@ ENV LANG='C.UTF-8'\
     TERM='xterm-256color'\
     GOPATH='/opt/go'
 
-##################
 # 3 Install apps #
-##################
 
 # Add rootfs
 COPY rootfs/ /
@@ -82,38 +53,6 @@ RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh"
 
-# Automatic modules download
-#RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-#    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-#    && apt-get update && apt-get install -yqq --no-install-recommends ca-certificates || apk add --no-cache ca-certificates >/dev/null || true \
-RUN mkdir -p /etc/cont-init.d \
-    && for scripts in $MODULES; do echo "$scripts" && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/$scripts" -o /etc/cont-init.d/"$scripts" && [ "$(sed -n '/\/bin/p;q' /etc/cont-init.d/"$scripts")" != "" ] || (echo "script failed to install $scripts" && exit 1); done \
-    && chmod -R 755 /etc/cont-init.d
-
-# Manual apps
-#ENV PACKAGES="curl \
-#    jq \
-#    bash \
-#    build-base libressl-dev ca-certificates npm"
-
-# Automatic apps & bashio
-# hadolint ignore=SC2015
-#RUN if ! command -v bash >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends bash || apk add --no-cache bash) >/dev/null; fi \
-#    && if ! command -v curl >/dev/null 2>/dev/null; then (apt-get update && apt-get install -yqq --no-install-recommends curl || apk add --no-cache curl) >/dev/null; fi \
-#    && curl -f -L -s -S "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/automatic_packages.sh" --output /automatic_packages.sh \
-#    && chmod 777 /automatic_packages.sh \
-#    && eval /./automatic_packages.sh "${PACKAGES:-}" \
-#    && rm /automatic_packages.sh
-
-# Install mustache
-# spellcheck disable=SC2015
-# hadolint ignore=SC2015,DL3017
-#RUN apk add --no-cache \
-#    go \
-#    npm \
-#    xz \
-    #    && npm install mustache-cli --global
-#    && apk upgrade --no-cache &&\
 RUN apk add --no-cache --virtual .build-deps\
     build-base\
     git\
@@ -130,9 +69,7 @@ RUN rm -rf go-build
 WORKDIR /
 RUN rm -rf /media/* /usr/share/doc /usr/share/man /usr/share/misc
 
-################
 # 4 Entrypoint #
-################
 
 WORKDIR /
 RUN chmod 777 /entrypoint.sh
@@ -140,9 +77,7 @@ ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/entrypoint.sh" ]
 VOLUME [ "/data" ]
 
-############
 # 5 Labels #
-############
 
 ARG BUILD_ARCH
 ARG BUILD_DATE
