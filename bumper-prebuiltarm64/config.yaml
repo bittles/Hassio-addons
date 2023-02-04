@@ -3,7 +3,7 @@ version: "1.2.2"
 slug: "bumperfork-arm64"
 apparmor: true
 description: "Local replacement server for Ecovacs robots."
-#image: bittles999/bumper-arm64
+image: bittles999/bumper-arm64
 url: https://github.com/bittles/Hassio-addons/tree/master/bumper-prebuiltarm64
 startup: services
 arch:
