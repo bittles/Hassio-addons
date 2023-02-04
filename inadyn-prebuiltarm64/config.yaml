@@ -5,7 +5,6 @@
 "apparmor": true
 "arch":
   - aarch64
-"codenotary": "bittles.github@gmail.com"
 "description": "Inadyn is a small and simple Dynamic DNS, DDNS, client with HTTPS support. A large number of dynamic dns providers are supported (https://github.com/troglobit/inadyn#supported-providers). For those that are not, you can use a custom provider as per this project's documentation (https://github.com/nalipaz/hassio-addons/blob/master/README.md)"
 "host_network": true
 #"image": "bittles999/inadynfork-arm64"
