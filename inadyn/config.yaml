@@ -1,5 +1,5 @@
-"name": "Inadyn Bittles fork arm64"
-"slug": "inadyn-bittles-arm64"
+"name": "Inadyn Bittles fork"
+"slug": "inadyn-bittles"
 "url": https://github.com/bittles/Hassio-addons
 "version": "2.10.0.2"
 "apparmor": true
@@ -12,6 +12,7 @@
 "codenotary": "bittles.github@gmail.com"
 "description": "Inadyn is a small and simple Dynamic DNS, DDNS, client with HTTPS support. A large number of dynamic dns providers are supported (https://github.com/troglobit/inadyn#supported-providers). For those that are not, you can use a custom provider as per this project's documentation (https://github.com/nalipaz/hassio-addons/blob/master/README.md)"
 "host_network": true
+#  "image": "ghcr.io/alexbelgium/inadyn-{arch}",
 "map":
   - ssl
   - share:rw
