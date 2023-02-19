@@ -1,0 +1,15 @@
+FROM ghcr.io/hassio-addons/debian-base:6.2.1
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+COPY docker/install-main-deps.sh /.install-main-deps.sh
+RUN /.install-main-deps.sh
+
+COPY docker/install-arch-specific-dependencies.sh /.install-deps.sh
+RUN /.install-deps.sh
+
+RUN \
+    rm -f /.install-deps.sh && \
+    rm -f /.install-main-deps.sh && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*

@@ -1,0 +1,1 @@
+docker build -t bittles999/hassio-gst-base -f Dockerfile.base .
