@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bashio
+
+if test "$1" -eq 256 ; then
+  e=$((128 + $2))
+else
+  e="$1"
+fi
+
+bashio::log.info "Go2RTC crashed with error code $e" > /run/s6-linux-init-container-results/exitcode

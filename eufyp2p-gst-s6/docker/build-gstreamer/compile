@@ -1,0 +1,52 @@
+#!/bin/bash
+set -e
+
+source $HOME/.cargo/env
+
+pushd gstreamer
+# TODO: Hack: `-D gupnp=disabled` is for libnice, because libgupnp-igd causes memory leaks
+# msdk=enabled is for gst-plugings-bad to include msdk elements
+# with_x11=no is for gstreamer-vaapi to exclude X11-related functionality (that would otherwise require extra dependencies)
+MESON_OPTIONS="-Dvaapi=enabled -Dgpl=enabled -Dgst-examples=disabled -Dexamples=disabled -Dtests=disabled -Ddoc=disabled -Dqt5=disabled -Dpython=disabled -Dges=disabled -Ddevtools=disabled -Dintrospection=disabled -Dlibnice:gupnp=disabled -Dgstreamer-vaapi:x11=disabled"
+
+ARCH=$(dpkg --print-architecture)
+if [[ $ARCH == "amd64" ]]; then
+    MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-bad:msdk=enabled"
+fi
+
+# these didn't link right (don't think they're in restreamio's deps) and they're kind of niche anyways.  disabling them here
+#MESON_OPTIONS="$MESON_OPTIONS -Dgst-plugins-base:x11=disabled -Dgst-plugins-bad:fluiddec=disabled -Dgst-plugins-bad:qroverlay=disabled"
+
+if [[ $DEBUG == 'true' ]]; then
+  if [[ $OPTIMIZATIONS == 'true' ]]; then
+    meson build -D prefix=/usr $MESON_OPTIONS -D buildtype=debugoptimized
+  else
+    meson build -D prefix=/usr $MESON_OPTIONS -D buildtype=debug
+  fi
+else
+  meson build -D prefix=/usr $MESON_OPTIONS -D buildtype=release -D b_lto=true
+fi
+
+# This is needed for other plugins to be built properly
+ninja -C build install
+# This is where we'll grab build artifacts from
+DESTDIR=/compiled-binaries ninja -C build install
+popd
+
+# Build the GStreamer CEF plugin
+#pushd gstcefsrc
+#source /.cef-config.sh
+#GST_CEF_CMAKE_OPTS="-DCMAKE_INSTALL_PREFIX=/usr/cef -GNinja -DCEF_BUILDS_HOMEPAGE_URL=$CEF_DOWNLOAD_URL -DCEF_VERSION=$CEF_VERSION"
+
+# TODO: Build CEF Debug artifacts as well.
+#GST_CEF_BUILD_TYPE=Release
+
+#cmake -DCMAKE_BUILD_TYPE=$GST_CEF_BUILD_TYPE $GST_CEF_CMAKE_OPTS -B build -S .
+#DESTDIR=/compiled-binaries ninja -C build install
+#rm -fr build third_party
+#popd
+
+#chown root:root /compiled-binaries/usr/cef/chrome-sandbox
+#chmod 4755 /compiled-binaries/usr/cef/chrome-sandbox
+
+gst-inspect-1.0

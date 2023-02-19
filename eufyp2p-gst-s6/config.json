@@ -1,0 +1,30 @@
+{
+    "name": "eufyp2p-gst-s6",
+    "description": "Eufy P2P camera streaming application with gst-launch-1.0",
+    "url": "https://github.com/bittles/eufyp2p-gst",
+    "arch": [
+        "aarch64"
+    ],
+    "image": "bittles999/aarch64-addon-eufyp2p-gst-s6",
+    "slug": "eufyp2p-gst-s6",
+    "version": "0.6",
+    "init": false,
+    "startup": "application",
+    "host_network": true,
+    "video": true,
+    "audio": true,
+    "ingress": true,
+    "ingress_port": "1997",
+    "panel_icon": "mdi:camera-wireless",
+    "map": [
+      "config:rw"
+    ],
+    "ports": {
+      "8541/tcp": 8541,
+      "1997/tcp": 1997
+    },
+    "ports_description": {
+      "8541/tcp": "Port for serving RTSP at x.x.x.x:<port>/camera1",
+      "1997/tcp": "Port for go2rtc web interface"
+    }
+}

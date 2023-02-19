@@ -1,0 +1,21 @@
+FROM bittles999/hassio-gst-deps
+
+#ARG GSTREAMER_REPOSITORY=https://gitlab.freedesktop.org/philn/gstreamer.git
+
+# 1.20-studio-rebase-220504 branch
+#ARG GSTREAMER_CHECKOUT=3cbbd3addcf5dd1f88ab595a5562d16ee975c35d
+
+ARG GST_VERSION="1.22"
+
+ARG GSTREAMER_CEF_REPOSITORY=https://github.com/centricular/gstcefsrc
+ARG GSTREAMER_CEF_CHECKOUT=cce144d984e70cc88f4624390419171fea6ca8ee
+
+#COPY docker/cef-config.sh /.cef-config.sh
+
+#COPY docker/sccache.toml /sccache.toml
+
+COPY docker/build-gstreamer/download /download
+
+RUN ["/download"]
+
+COPY docker/build-gstreamer/compile /compile

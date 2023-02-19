@@ -1,0 +1,14 @@
+streams:
+  camera1: exec:gst-launch-1.0 -v -e tcpclientsrc host=127.0.0.1 port=63336 timeout=100000000 ! h264parse config-interval=-1 update-timecode=true ! rtspclientsink protocols=tcp latency=0 location={output} name=pay tcpclientsrc host=127.0.0.1 port=63337 timeout=100000000 ! queue ! aacparse ! faad ! audioconvert ! audio/x-raw,channels=1 ! opusenc audio-type=2051 bitrate=64000 ! pay.
+
+  # Notes for other audio codecs:
+  # Non-aac audio codecs: Replace 'queue ! aacparse ! faad' with 'decodebin'
+
+  # Default FFmpeg command:
+  #ffmpeg -analyzeduration 1200000 -i tcp://127.0.0.1:63337?timeout=100000000 -analyzeduration 1200000 -f h264 -i tcp://127.0.0.1:63336?timeout=100000000 -strict -2 -c:a opus -c:v copy -hls_init_time 0 -hls_time 2 -hls_segment_type mpegts  -fflags genpts+nobuffer+flush_packets -flags low_delay -hls_playlist_type event -sc_threshold 0 -g 15 -map 0:a -map 1:v -rtsp_transport tcp -f rtsp {output}
+
+api:
+  listen: ":1997"
+
+rtsp:
+  listen: ":8541"

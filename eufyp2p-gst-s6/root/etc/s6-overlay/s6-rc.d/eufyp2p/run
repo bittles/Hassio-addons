@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bashio
+
+set -e
+bashio::log.info "Starting eufyp2p"
+
+if [ ! -d /config/www/eufyp2p ]; then
+    mkdir -p /config/www/eufyp2p
+fi
+
+cd /app
+
+exec python3 -m eufyp2p

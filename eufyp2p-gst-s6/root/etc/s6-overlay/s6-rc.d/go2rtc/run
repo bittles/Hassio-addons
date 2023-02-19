@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bashio
+set -e
+bashio::log.info "Starting go2rtc"
+
+if [ ! -d /config/eufyp2p ]; then
+    mkdir /config/eufyp2p
+    cp config/go2rtc.yaml /config/eufyp2p/
+fi
+
+/usr/local/bin/go2rtc -config /config/eufyp2p/go2rtc.yaml
