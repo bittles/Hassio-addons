@@ -1,3 +1,6 @@
+# 0.37
+- Use opus fec with packet loss percentage, fixes sporadic garbled audio.  May try to tweak more later.
+
 # 0.36
 - Increase opus frame size ms from 40 to 60 in hi res streams
 
