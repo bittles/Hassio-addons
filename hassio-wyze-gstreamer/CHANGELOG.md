@@ -1,3 +1,6 @@
+# 0.34
+- Add ntp-time-source=3 to rtspclientsink
+
 # 0.33
 - Fix config
 
