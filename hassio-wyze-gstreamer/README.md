@@ -35,11 +35,11 @@ rtspclientsink protocols=tcp latency=0 ntp-time-source=3 \
 location=rtsp://${RTSP_SIMPLE_SERVER_IP}:${RTSP_SIMPLE_SERVER_PORT}/${CAM2_RTSP_SS_HI_RES_PATH} \
 name=pay t. ! queue ! \
 capsfilter caps="application/x-rtp,media=audio,clock-rate=16000,encoding-name=L16" ! \
-rtpL16depay ! queue ! audioconvert ! audio/x-raw,channels=1 ! queue ! \
-volume volume=1.5 ! audioresample ! \
-opusenc audio-type=2051 bandwidth=-1000 \
-bitrate=64000 frame-size=60 ! queue ! \
-pay. -e
+rtpL16depay ! queue ! audioconvert ! queue ! \
+audioresample ! audio/x-raw,channels=1,rate=16000 ! volume volume=1.5 ! \
+opusenc bitrate=64000 \
+packet-loss-percentage=50 inband-fec=true ! \
+queue ! pay. -e
 ```
 
 ### Pipeline for lo res (similar but audio sample rate in wz_mini is lower):
@@ -54,9 +54,9 @@ rtspclientsink protocols=tcp latency=0 ntp-time-source=3 \
 location=rtsp://${RTSP_SIMPLE_SERVER_IP}:${RTSP_SIMPLE_SERVER_PORT}/${CAM2_RTSP_SS_LO_RES_PATH} \
 name=pay t. ! queue ! \
 capsfilter caps="application/x-rtp,media=audio,clock-rate=8000,encoding-name=L16" ! \
-rtpL16depay ! queue ! audioconvert ! audio/x-raw,channels=1 ! queue ! \
-volume volume=1.5 ! audioresample ! \
-opusenc audio-type=2051 bandwidth=-1000 \
-bitrate=64000 frame-size=60 ! queue ! \
-pay. -e
+rtpL16depay ! queue ! audioconvert ! queue ! \
+audioresample ! audio/x-raw,channels=1,rate=8000 ! volume volume=1.5 ! \
+opusenc bitrate=64000 \
+packet-loss-percentage=50 inband-fec=true ! \
+queue ! pay. -e 
 ```
