@@ -1,0 +1,1 @@
+docker build -t bittles999/hass-gstreamer-wyze:0.33 -f Dockerfile .

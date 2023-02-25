@@ -1,0 +1,1 @@
+docker build -t bittles999/hassio-gst-base:ubuntu --progress=plain -f Dockerfile.gst-base . 2>&1 | tee build-base.log

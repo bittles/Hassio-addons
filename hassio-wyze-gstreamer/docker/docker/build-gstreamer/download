@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+git clone --depth 1 --branch "1.22" https://github.com/GStreamer/gstreamer
+#git clone --depth 1 --branch ${GST_VERSION} https://github.com/GStreamer/gstreamer
+

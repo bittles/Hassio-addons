@@ -1,0 +1,42 @@
+name: Wyze Gstreamer RTSP
+description: RTSP Server for Wyze
+url: https://github.com/bittles/hassio-wyze-gstreamer
+arch: 
+  - aarch64
+slug: gstreamer-wyze
+version: 0.33
+init: false
+startup: application
+host_network: true
+ingress: false
+image: bittles999/hass-gstreamer-wyze
+schema:
+  rtsp_simple_server_ip: match(([0-9])+(.+))
+  rtsp_simple_server_port: match(([0-9]))
+  cam1_ip: match(([0-9])+(.+))
+  cam1_rtsp_port: match(([0-9]))
+  cam1_username: str
+  cam1_password: str
+  cam1_rtsp_ss_hi_res_path: str
+  cam1_rtsp_ss_lo_res_path: str
+  cam2_ip: match(([0-9])+(.+))
+  cam2_rtsp_port: match(([0-9]))
+  cam2_username: str
+  cam2_password: str
+  cam2_rtsp_ss_hi_res_path: str
+  cam2_rtsp_ss_lo_res_path: str
+options:
+  rtsp_simple_server_ip: 127.0.0.1
+  rtsp_simple_server_port: 8554
+  cam1_ip: 0.0.0.0
+  cam1_rtsp_port: 8554
+  cam1_username: cam1username
+  cam1_password: cam1pass
+  cam1_rtsp_ss_hi_res_path: cam1_hi
+  cam1_rtsp_ss_lo_res_path: cam1_lo
+  cam2_ip: 0.0.0.0
+  cam2_rtsp_port: 8554
+  cam2_username: cam2username
+  cam2_password: cam2pass
+  cam2_rtsp_ss_hi_res_path: cam2_hi
+  cam2_rtsp_ss_lo_res_path: cam2_lo
