@@ -1,0 +1,33 @@
+#!/usr/bin/with-contenv bashio
+set -eu
+
+bashio::log.info "Starting Cam1 Lo Res Stream"
+# Create main config
+
+RTSP_SIMPLE_SERVER_IP=$(bashio::config 'rtsp_simple_server_ip')
+RTSP_SIMPLE_SERVER_PORT=$(bashio::config 'rtsp_simple_server_port')
+CAM1_IP=$(bashio::config 'cam1_ip')
+CAM1_RTSP_PORT=$(bashio::config 'cam1_rtsp_port')
+CAM1_USERNAME=$(bashio::config 'cam1_username')
+CAM1_PASSWORD=$(bashio::config 'cam1_password')
+CAM1_RTSP_SS_LO_RES_PATH=$(bashio::config 'cam1_rtsp_ss_lo_res_path')
+
+rm -f gstream-cam1-lo.log
+
+tail --pid $$ -F gstream-cam1-lo.log &
+
+gst-launch-1.0 rtspsrc protocols=tcp \
+location=rtsp://${CAM1_USERNAME}:${CAM1_PASSWORD}@${CAM1_IP}:${CAM1_RTSP_PORT}/video2_unicast \
+latency=100 buffer-mode=3 connection-speed=1000 add-reference-timestamp-meta=true \
+name=t t. ! queue ! \
+capsfilter caps="application/x-rtp,media=video,height=640,width=360" ! \
+queue ! rtph264depay ! h264parse ! h264timestamper ! queue ! \
+rtspclientsink protocols=tcp latency=0 \
+location=rtsp://${RTSP_SIMPLE_SERVER_IP}:${RTSP_SIMPLE_SERVER_PORT}/${CAM1_RTSP_SS_LO_RES_PATH} \
+name=pay t. ! queue ! \
+capsfilter caps="application/x-rtp,media=audio,clock-rate=8000,encoding-name=L16" ! \
+rtpL16depay ! queue ! audioconvert ! queue ! \
+volume volume=1.5 ! audioresample ! \
+opusenc audio-type=2051 bandwidth=-1000 \
+bitrate=64000 frame-size=60 ! queue ! \
+pay. -e > gstream-cam1-lo.log

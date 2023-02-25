@@ -1,0 +1,5 @@
+FROM bittles999/hassio-gst-compile:ubuntu
+
+FROM bittles999/hassio-gst-base:ubuntu
+
+COPY --from=0 /compiled-binaries /

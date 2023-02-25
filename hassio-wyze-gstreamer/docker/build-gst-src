@@ -1,0 +1,1 @@
+docker build -t bittles999/hassio-gst-src:ubuntu --progress=plain -f Dockerfile.gst-get-src . 2>&1 | tee build-gstreamer.log

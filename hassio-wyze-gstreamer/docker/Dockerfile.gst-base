@@ -1,0 +1,16 @@
+FROM bittles999/addon-ubuntu-base-jammy
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+COPY docker/install-base-deps /install-base-deps
+
+RUN /install-base-deps
+
+COPY docker/install-arch-specific-dependencies /install-arch-deps
+RUN /install-arch-deps
+
+RUN \
+    rm -f /install-arch-deps && \
+    rm -f /install-base-deps && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
