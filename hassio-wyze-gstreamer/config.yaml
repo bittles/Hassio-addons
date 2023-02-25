@@ -4,7 +4,7 @@ url: https://github.com/bittles/hassio-wyze-gstreamer
 arch: 
   - aarch64
 slug: gstreamer-wyze
-version: 0.35
+version: 0.36
 init: false
 startup: application
 host_network: true

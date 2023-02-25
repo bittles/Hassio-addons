@@ -38,7 +38,7 @@ capsfilter caps="application/x-rtp,media=audio,clock-rate=16000,encoding-name=L1
 rtpL16depay ! queue ! audioconvert ! audio/x-raw,channels=1 ! queue ! \
 volume volume=1.5 ! audioresample ! \
 opusenc audio-type=2051 bandwidth=-1000 \
-bitrate=64000 frame-size=40 ! queue ! \
+bitrate=64000 frame-size=60 ! queue ! \
 pay. -e
 ```
 
