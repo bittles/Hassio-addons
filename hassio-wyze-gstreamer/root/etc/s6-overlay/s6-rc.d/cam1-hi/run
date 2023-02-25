@@ -22,11 +22,11 @@ latency=120 buffer-mode=3 connection-speed=2000 add-reference-timestamp-meta=tru
 name=t t. ! queue ! \
 capsfilter caps="application/x-rtp,media=video,height=1920,width=1080" ! \
 queue ! rtph264depay ! h264parse ! h264timestamper ! queue ! \
-rtspclientsink protocols=tcp latency=0 \
+rtspclientsink protocols=tcp latency=0 ntp-time-source=3 \
 location=rtsp://${RTSP_SIMPLE_SERVER_IP}:${RTSP_SIMPLE_SERVER_PORT}/${CAM1_RTSP_SS_HI_RES_PATH} \
 name=pay t. ! queue ! \
 capsfilter caps="application/x-rtp,media=audio,clock-rate=16000,encoding-name=L16" ! \
-rtpL16depay ! queue ! audioconvert ! queue ! \
+rtpL16depay ! queue ! audioconvert ! audio/x-raw,channels=1 ! queue ! \
 volume volume=1.5 ! audioresample ! \
 opusenc audio-type=2051 bandwidth=-1000 \
 bitrate=64000 frame-size=40 ! queue ! \

@@ -1,3 +1,6 @@
+# 0.35
+- Add  audio/x-raw,channels=1 to pipeline so opusenc doesn't try to transcode 2 channels
+
 # 0.34
 - Add ntp-time-source=3 to rtspclientsink
 
