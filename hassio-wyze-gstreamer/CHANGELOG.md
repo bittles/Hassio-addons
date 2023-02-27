@@ -1,3 +1,6 @@
+# 0.38
+- Add snapshot gstreamer pipeline
+
 # 0.37
 - Use opus fec with packet loss percentage, fixes sporadic garbled audio.  May try to tweak more later.
 

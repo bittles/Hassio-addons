@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bashio
+set -eu
+
+bashio::log.info "Starting Cam1 Snapshot Stream"
+# Create main config
+
+RTSP_SIMPLE_SERVER_IP=$(bashio::config 'rtsp_simple_server_ip')
+RTSP_SIMPLE_SERVER_PORT=$(bashio::config 'rtsp_simple_server_port')
+CAM1_RTSP_SS_HI_RES_PATH=$(bashio::config 'cam1_rtsp_ss_hi_res_path')
+CAM1_SNAPSHOT_NAME=$(bashio::config 'cam1_snapshot_name')
+
+rm -f gstream-cam1-snapshot.log
+
+tail --pid $$ -F gstream-cam1-snapshot.log &
+
+gst-launch-1.0 rtspsrc protocols=tcp \
+location=rtsp://${RTSP_SIMPLE_SERVER_IP}:${RTSP_SIMPLE_SERVER_PORT}/${CAM1_RTSP_SS_HI_RES_PATH} \
+latency=1000 ! rtph264depay ! avdec_h264 ! videorate ! video/x-raw,framerate=150/1001 ! \
+jpegenc ! multifilesink location=/config/www/${CAM1_SNAPSHOT_NAME}.jpg -e > gstream-cam1-snapshot.log
