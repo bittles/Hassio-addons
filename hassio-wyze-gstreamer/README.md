@@ -4,19 +4,22 @@ Gstreamer pipelines setup to only work with two cams for now.  Both cams and bot
 Set cam1 and cam2 parameters from wz_mini_hacks. Then set ip, port and path for output (eg RTSP simple server). ie. rtsp://{rtsp_simple_server_ip}:{rtsp_simple_server_port}/{rtsp_simple_server_pathname}. 
 
 ## Addon Options
-| Option                   | Description                                                                        |
-| ------------------------ | ---------------------------------------------------------------------------------- |
-| rtsp_simple_server_ip    | Set to ip address of your receiver (eg RTSP simple server)                         |
-| rtsp_simple_server_port  | Port for your rtsp receiver 												        |
-| cam1_ip                  | IP address of first camera                                                         |
-| cam1_rtsp_port           | RTSP port of first camera                                                          |
-| cam1_username            | RTSP username of first camera                                                      |
-| cam1_password            | RTSP password of first camera                                                      |
-| cam1_rtsp_ss_hi_res_path | This is the name of the path to send the high res stream of camera 1 (see below)   |
-| cam1_rtsp_ss_lo_res_path | This is the name of the path to send the low res stream of camera 1 (see below)    |
+| Option                   | Description                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------- |
+| rtsp_simple_server_ip    | Set to ip address of your receiver (eg RTSP simple server)                            |
+| rtsp_simple_server_port  | Port for your rtsp receiver 											               |
+| cam1_ip                  | IP address of first camera                                                            |
+| cam1_rtsp_port           | RTSP port of first camera                                                             |
+| cam1_username            | RTSP username of first camera                                                         |
+| cam1_password            | RTSP password of first camera                                                         |
+| cam1_rtsp_ss_hi_res_path | This is the name of the path to send the high res stream of camera 1 (see below)      |
+| cam1_rtsp_ss_lo_res_path | This is the name of the path to send the low res stream of camera 1 (see below)       |
+| cam1_snapshot_name       | The name of the .jpg file you want saved in /config/www, .jpg extension already added |
 
 Path example: rtsp://{rtsp_simple_server_ip}:{rtsp_simple_server_port}/{cam1_rtsp_ss_hi_res_path}
 So if your rtsp simple server is at 192.168.1.50 and the rtsp port is 8554, and your path for your high res stream is 'yard_hi_res', gstreamer will output to rtsp://192.168.21.50:8554/yard_hi_res.
+
+Snapshots are saved as jpegs and name already includes .jpg extension.  So don't put snapshot.jpg in the options or it will be named snapshot.jpg.jpg.  Snapshots are saved in /config/www/{cam1_snapshot_name}.jpg to serve from Home Assistant.
 
 Repeat steps for cam2 options.
 
@@ -59,4 +62,12 @@ audioresample ! audio/x-raw,channels=1,rate=8000 ! volume volume=1.5 ! \
 opusenc bitrate=64000 \
 packet-loss-percentage=50 inband-fec=true ! \
 queue ! pay. -e 
+```
+### Snapshot pipeline:
+Snapshots are created ~6.67s.
+```
+gst-launch-1.0 rtspsrc protocols=tcp \
+location=rtsp://${RTSP_SIMPLE_SERVER_IP}:${RTSP_SIMPLE_SERVER_PORT}/${CAM2_RTSP_SS_HI_RES_PATH} \
+latency=0 ! rtph264depay ! avdec_h264 ! videorate ! video/x-raw,framerate=150/1001 ! \
+jpegenc ! multifilesink location=/config/www/${CAM2_SNAPSHOT_NAME}.jpg -e
 ```
