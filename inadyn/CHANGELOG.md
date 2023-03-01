@@ -1,3 +1,6 @@
+## 2.10.0.3
+- Pull inadyn from source repo instead of storing it in repo
+
 ## 2.10.0.2
 - Fix startup checks if /share/inadyn-cache exists and symbolic linking with inadyn's cache
 
