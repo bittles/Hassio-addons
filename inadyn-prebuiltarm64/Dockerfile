@@ -3,15 +3,15 @@ ARG BUILD_FROM="ghcr.io/hassio-addons/base:13.0.1"
 FROM $BUILD_FROM
 
 RUN apk --no-cache add --virtual .build-dependencies \
-  autoconf \
-  automake \
-  confuse-dev \
-  gcc \
-  gnutls-dev \
-  libc-dev \
-  libtool \
-  make\
-  git
+    autoconf \
+    automake \
+    confuse-dev \
+    gcc \
+    gnutls-dev \
+    libc-dev \
+    libtool \
+    make\
+    git
 
 ARG INADYN_VERSION="v2.10.0"
 RUN git clone --depth 1 --branch "$INADYN_VERSION" https://github.com/troglobit/inadyn
@@ -19,18 +19,12 @@ RUN git clone --depth 1 --branch "$INADYN_VERSION" https://github.com/troglobit/
 WORKDIR /inadyn
 RUN ./autogen.sh
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/usr
-RUN make install
-
-WORKDIR /root
-RUN apk del --no-cache --purge .build-dependencies &&\
-    rm -rf /root/source
-
-RUN apk --no-cache add \
-  ca-certificates \
-  confuse \
-  gnutls
-
-# 2 Modify Image #
+RUN make install &&\
+    apk del --no-cache --purge .build-dependencies &&\
+    apk --no-cache add \
+    ca-certificates \
+    confuse \
+    gnutls
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
