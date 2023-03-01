@@ -37,21 +37,13 @@ RUN git clone --depth 1 --branch "$INADYN_VERSION" https://github.com/troglobit/
 WORKDIR /inadyn
 RUN ./autogen.sh
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/usr
-RUN make install
 
-WORKDIR /root
-RUN apk del --no-cache --purge .build-dependencies
-
-#FROM $BUILD_FROM as base
-#FROM builder as base
-#COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
-#COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
-
-#FROM base
-RUN apk --no-cache add \
-  ca-certificates \
-  confuse \
-  gnutls
+RUN make install &&\
+    apk del --no-cache --purge .build-dependencies &&\
+    apk --no-cache add \
+    ca-certificates \
+    confuse \
+    gnutls
 
 #FROM base
 ##################
