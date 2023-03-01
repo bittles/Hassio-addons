@@ -14,7 +14,7 @@ RUN apk --no-cache add --virtual .build-dependencies \
   git
 
 ARG INADYN_VERSION="v2.10.0"
-git clone --depth 1 --branch "$INADYN_VERSION" https://github.com/troglobit/inadyn
+RUN git clone --depth 1 --branch "$INADYN_VERSION" https://github.com/troglobit/inadyn
 #WORKDIR /root/source
 COPY inadyn ./
 WORKDIR /inadyn
