@@ -3,32 +3,28 @@ ARG BUILD_FROM="ghcr.io/hassio-addons/base:13.0.1"
 FROM $BUILD_FROM
 
 RUN apk --no-cache add --virtual .build-dependencies \
-  autoconf \
-  automake \
-  confuse-dev \
-  gcc \
-  gnutls-dev \
-  libc-dev \
-  libtool \
-  make
+    autoconf \
+    automake \
+    confuse-dev \
+    gcc \
+    gnutls-dev \
+    libc-dev \
+    libtool \
+    make\
+    git
 
-WORKDIR /root/source
-COPY inadynsource/ ./
-RUN chmod a+x autogen.sh
-RUN ./autogen.sh 
+ARG INADYN_VERSION="v2.10.0"
+RUN git clone --depth 1 --branch "$INADYN_VERSION" https://github.com/troglobit/inadyn
+#WORKDIR /root/source
+WORKDIR /inadyn
+RUN ./autogen.sh
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/usr
-RUN make install
-
-WORKDIR /root
-RUN apk del --no-cache --purge .build-dependencies &&\
-    rm -rf /root/source
-
-RUN apk --no-cache add \
-  ca-certificates \
-  confuse \
-  gnutls
-
-# 2 Modify Image #
+RUN make install &&\
+    apk del --no-cache --purge .build-dependencies &&\
+    apk --no-cache add \
+    ca-certificates \
+    confuse \
+    gnutls
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
@@ -53,6 +49,7 @@ RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
 # Modules
 ARG MODULES="00-banner.sh 01-custom_script.sh"
 
+WORKDIR /
 RUN apk add --no-cache --virtual .build-deps\
     build-base\
     git\
@@ -64,10 +61,7 @@ RUN apk add --no-cache --virtual .build-deps\
     apk del --no-cache --purge .build-deps xz build-base go git || true
 
 # Some more build cleanup
-WORKDIR /root/.cache
-RUN rm -rf go-build
-WORKDIR /
-RUN rm -rf /media/* /usr/share/doc /usr/share/man /usr/share/misc
+RUN rm -rf /root/.cache/go-build /media/* /usr/share/doc /usr/share/man /usr/share/misc /inadyn
 
 # 4 Entrypoint #
 

@@ -28,28 +28,22 @@ RUN apk --no-cache add --virtual .build-dependencies \
   gnutls-dev \
   libc-dev \
   libtool \
-  make
+  make \
+  git
 
-WORKDIR /root/source
-COPY inadynsource/ ./
-RUN ./autogen.sh 
+ARG INADYN_VERSION="v2.10.0"
+RUN git clone --depth 1 --branch "$INADYN_VERSION" https://github.com/troglobit/inadyn
+#WORKDIR /root/source
+WORKDIR /inadyn
+RUN ./autogen.sh
 RUN ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/usr
-RUN make install
 
-WORKDIR /root
-RUN apk del --no-cache --purge .build-dependencies &&\
-    rm -rf /root/source
-
-#FROM $BUILD_FROM as base
-#FROM builder as base
-#COPY --from=builder /usr/sbin/inadyn /usr/sbin/inadyn
-#COPY --from=builder /usr/share/doc/inadyn /usr/share/doc/inadyn
-
-#FROM base
-RUN apk --no-cache add \
-  ca-certificates \
-  confuse \
-  gnutls
+RUN make install &&\
+    apk del --no-cache --purge .build-dependencies &&\
+    apk --no-cache add \
+    ca-certificates \
+    confuse \
+    gnutls
 
 #FROM base
 ##################
@@ -113,6 +107,8 @@ RUN mkdir -p /etc/cont-init.d \
 #    xz \
     #    && npm install mustache-cli --global
 #    && apk upgrade --no-cache &&\
+
+WORKDIR /
 RUN apk add --no-cache --virtual .build-deps\
     build-base\
     git\
@@ -124,16 +120,12 @@ RUN apk add --no-cache --virtual .build-deps\
     apk del --no-cache --purge .build-deps xz build-base go git || true
 
 # Some more build cleanup
-WORKDIR /root/.cache
-RUN rm -rf go-build
-WORKDIR /
-RUN rm -rf /media/* /usr/share/doc /usr/share/man /usr/share/misc
+RUN rm -rf /root/.cache/go-build /media/* /usr/share/doc /usr/share/man /usr/share/misc /inadyn
 
 ################
 # 4 Entrypoint #
 ################
 
-WORKDIR /
 RUN chmod 777 /entrypoint.sh
 ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/entrypoint.sh" ]
